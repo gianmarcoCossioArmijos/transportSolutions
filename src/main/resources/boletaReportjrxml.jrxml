@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.2.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boletaReportjrxml" language="javascript" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16e7bde9-58a5-44a1-8e9a-eb33b64f08d5">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="124" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="-20" y="0" width="250" height="40" uuid="a3059ff6-c483-4660-be76-4c5419cd7da9"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="230" y="0" width="345" height="120" uuid="b9d6505c-6b6e-4c35-9e3b-28e76efdebe1"/>
+			</rectangle>
+			<image>
+				<reportElement x="240" y="10" width="90" height="100" uuid="04d341e9-4f37-4595-a9c0-196f24a043b1"/>
+				<imageExpression><![CDATA["logo3.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="340" y="10" width="220" height="20" uuid="21af09ad-472f-4996-945f-ac2697226dcc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa de prueba S.R.L.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="30" width="220" height="20" uuid="636b4b5b-d30a-4f8f-a556-7e96611ae832"/>
+				<text><![CDATA[RUC 1213141516]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="50" width="220" height="20" uuid="5fd7a4d2-40ba-4111-b101-a32f48d823a2"/>
+				<text><![CDATA[AV. empresa 456 Urb. Prueba Jaen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="69" width="220" height="20" uuid="635b6d14-1fc3-48f5-9a6a-31543f3d8fbc"/>
+				<text><![CDATA[Telf. 999999999]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="89" width="220" height="20" uuid="fe4405ab-a048-437c-aebd-f729552b8721"/>
+				<text><![CDATA[empresa@prueba.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="0" width="250" height="40" uuid="d025a51d-c90f-4b00-9413-49c6837b7b2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BOLETA]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="-20" y="40" width="250" height="79" uuid="d027c506-903a-4bda-b105-eed61d8f30d8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-10" y="60" width="50" height="20" uuid="1a5a4f6f-1ada-442c-b86f-2568339ac86a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="80" width="50" height="20" uuid="d507f4d1-721f-43e8-81a4-f387da822cac"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="250" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="-20" y="0" width="595" height="250" uuid="daddf906-86f8-4290-96a8-01dccb6f2eb2"/>
+			</rectangle>
+			<subreport>
+				<reportElement x="-20" y="0" width="595" height="250" uuid="d0dc21d1-b1c1-43e8-8dbf-1baac4618233"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["detalleBoletaReport.jrxml"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="82" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="-20" y="0" width="595" height="40" uuid="0aafa418-e5a0-454e-8f7b-4768272abf1d"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="-20" y="40" width="595" height="40" uuid="cfa72e87-7164-434a-bba7-84631889957c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="450" y="0" width="40" height="40" uuid="c99a7df1-bd99-4d81-a451-b25cfab38129"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="5" width="50" height="30" uuid="0af3c71d-9f2f-441b-a1f6-9ebac198eae6"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CAJERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-11" y="45" width="50" height="30" uuid="a53d99cf-aaf9-4e69-87a8-40fe750704a7"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[CAJA]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
