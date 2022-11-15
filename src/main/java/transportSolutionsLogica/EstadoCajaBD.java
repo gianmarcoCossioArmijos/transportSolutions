@@ -69,7 +69,7 @@ public class EstadoCajaBD {
     public DefaultTableModel reportarSesionCaja(String fecha) {
 
         DefaultTableModel modelo;
-        String[] titulos = {"ID","FECHA","ESTADO","MONTO APERTURA","MONTO CIERRE","ID CAJA","CAJA","TURNO","USUARIO"};
+        String[] titulos = {"ID","FECHA","ESTADO","APERTURA","CIERRE","ID CAJA","CAJA","TURNO","USUARIO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
         sql = "SELECT ec.idEstadoCaja,ec.fecha,ec.estado,ec.montoApertura,ec.montoCierre,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario WHERE fecha='" + fecha + "' ORDER BY ec.idEstadoCaja DESC";
@@ -100,24 +100,26 @@ public class EstadoCajaBD {
         }
     }
 
-    public DefaultTableModel reportarCajaEstado(String estado) {
+    public DefaultTableModel reportarCajaEstado(String fecha) {
 
         DefaultTableModel modelo;
-        String[] titulos = {"ID","ESTADO","CAJA CHICA","ID CAJA","CAJA","TURNO","USUARIO"};
-        String[] registros = new String[7];
+        String[] titulos = {"ID","FECHA","ESTADO","APERTURA","CIERRE","ID CAJA","CAJA","TURNO","USUARIO"};
+        String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT ec.idEstadoCaja,ec.estado,ec.montoCajaChica,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario WHERE ec.estado='" + estado + "' ORDER BY ec.idEstadoCaja DESC";
+        sql = "SELECT ec.idEstadoCaja,ec.fecha,ec.estado,ec.montoApertura,ec.montoCierre,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario WHERE ec.fecha='" + fecha + "' ORDER BY ec.idEstadoCaja DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 registros[0] = rs.getString("ec.idEstadoCaja");
-                registros[1] = rs.getString("ec.estado");
-                registros[2] = rs.getString("ec.montoCajaChica");
-                registros[3] = rs.getString("ec.idCaja");
-                registros[4] = rs.getString("c.descripcion");
-                registros[5] = rs.getString("t.descripcion");
-                registros[6] = rs.getString("u.nombres");
+                registros[1] = rs.getString("ec.fecha");
+                registros[2] = rs.getString("ec.estado");
+                registros[3] = rs.getString("ec.montoApertura");
+                registros[4] = rs.getString("ec.montoCierre");
+                registros[5] = rs.getString("ec.idCaja");
+                registros[6] = rs.getString("c.descripcion");
+                registros[7] = rs.getString("t.descripcion");
+                registros[8] = rs.getString("u.nombres");
 
                 modelo.addRow(registros);
             }
@@ -130,5 +132,35 @@ public class EstadoCajaBD {
             op.setMessageType(JOptionPane.ERROR_MESSAGE);
             return null;
         }
-    }  
+    }
+    
+    public DefaultTableModel reportarCierreCaja(int idEstadoCaja) {
+
+        DefaultTableModel modelo;
+        String[] titulos = {"TOTAL","APERTURA","CIERRE","FECHA","CAJERO"};
+        String[] registros = new String[5];
+        modelo = new DefaultTableModel(null, titulos);
+        sql = "SELECT C.total,ec.montoApertura,ec.montoCierre,C.fecha,C.cajero FROM (SELECT SUM(V.total) AS total,V.fecha AS fecha,u.nombres AS cajero,c.descripcion AS caja,V.caja AS id_caja  FROM ( SELECT SUM(b.total) AS total,b.fecha AS fecha,b.idUsuario AS usuario,b.idCaja AS caja FROM boleta AS b WHERE b.idEstadoCaja='" + idEstadoCaja + "' UNION ALL SELECT SUM(f.total) AS total,f.fecha AS fecha,f.idUsuario AS usuario,f.idCaja AS caja FROM factura AS f WHERE f.idEstadoCaja='" + idEstadoCaja + "')V JOIN usuario AS u ON V.usuario = u.idUsuario JOIN caja AS c ON V.caja = c.idCaja)C JOIN estadocaja AS ec ON C.id_Caja = ec.idCaja WHERE ec.idEstadoCaja='" + idEstadoCaja + "'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                registros[0] = rs.getString("C.total");
+                registros[1] = rs.getString("ec.montoApertura");
+                registros[2] = rs.getString("ec.montoCierre");
+                registros[3] = rs.getString("C.fecha");
+                registros[4] = rs.getString("C.cajero");
+
+                modelo.addRow(registros);
+            }
+            rs.close();
+            st.close();
+            cn.close();
+            return modelo;
+        } catch (Exception e) {
+            JOptionPane op = new JOptionPane("Error al reportar sesion de caja");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
 }

@@ -10,11 +10,12 @@ public class Boleta {
     private int idClienteNatural;
     private int idUsuario;
     private int idCaja;
+    private int idEstadoCaja;
 
     public Boleta() {
     }
 
-    public Boleta(double total, String fecha, String correlativo, String estado, String tipo, int idClienteNatural, int idUsuario, int idCaja) {
+    public Boleta(double total, String fecha, String correlativo, String estado, String tipo, int idClienteNatural, int idUsuario, int idCaja, int idEstadoCaja) {
 
         this.total = total;
         this.fecha = fecha;
@@ -24,6 +25,7 @@ public class Boleta {
         this.idClienteNatural = idClienteNatural;
         this.idUsuario = idUsuario;
         this.idCaja = idCaja;
+        this.idEstadoCaja = idEstadoCaja;
     }
 
     public int getIdCaja() {
@@ -88,5 +90,13 @@ public class Boleta {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public int getIdEstadoCaja() {
+        return idEstadoCaja;
+    }
+
+    public void setIdEstadoCaja(int idEstadoCaja) {
+        this.idEstadoCaja = idEstadoCaja;
     }
 }

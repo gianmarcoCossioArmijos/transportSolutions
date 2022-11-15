@@ -129,7 +129,6 @@
             <artifactId>bcmail-jdk15on</artifactId>
             <version>1.68</version>
         </dependency>
-
         
     </dependencies>
     
@@ -139,4 +138,5 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.transportsolutions.transportsolutions.TransportSolutions</exec.mainClass>
     </properties>
+    
 </project>

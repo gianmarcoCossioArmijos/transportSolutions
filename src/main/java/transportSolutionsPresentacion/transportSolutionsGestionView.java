@@ -220,7 +220,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gtu);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gtu.getSize();
-        gtu.setLocation((desktopSize.width - FrameSize.width) / 5, (desktopSize.height - FrameSize.height) / 2);
+        gtu.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gtu.setVisible(true);
     }//GEN-LAST:event_btnGestionTipoUsuarioActionPerformed
 
@@ -230,7 +230,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gat);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gat.getSize();
-        gat.setLocation((desktopSize.width - FrameSize.width) / 18, (desktopSize.height - FrameSize.height) / 4);
+        gat.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gat.setVisible(true);
     }//GEN-LAST:event_btnGestionAreaTrabajoActionPerformed
 
@@ -240,7 +240,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(ge);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = ge.getSize();
-        ge.setLocation((desktopSize.width - FrameSize.width) / 30, (desktopSize.height - FrameSize.height) / 4);
+        ge.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         ge.setVisible(true);
     }//GEN-LAST:event_btnGestionEmpleadosActionPerformed
 
@@ -250,7 +250,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gc);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gc.getSize();
-        gc.setLocation((desktopSize.width - FrameSize.width) / 26, (desktopSize.height - FrameSize.height) / 4);
+        gc.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gc.show();
     }//GEN-LAST:event_btnGestionClientesActionPerformed
 
@@ -265,7 +265,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(u);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = u.getSize();
-        u.setLocation((desktopSize.width - FrameSize.width) / 5, (desktopSize.height - FrameSize.height) / 2);
+        u.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         u.setVisible(true);
     }//GEN-LAST:event_btnGestionUsuarioActionPerformed
 
@@ -275,7 +275,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gc);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gc.getSize();
-        gc.setLocation((desktopSize.width - FrameSize.width) / 36, (desktopSize.height - FrameSize.height) / 4);
+        gc.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gc.setVisible(true);
     }//GEN-LAST:event_btnGestionCorrelativosActionPerformed
 
@@ -285,7 +285,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gc);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gc.getSize();
-        gc.setLocation((desktopSize.width - FrameSize.width) / 36, (desktopSize.height - FrameSize.height) / 4);
+        gc.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gc.setVisible(true);      
     }//GEN-LAST:event_btnGestionCajasActionPerformed
 
@@ -295,7 +295,7 @@ public class transportSolutionsGestionView extends javax.swing.JFrame {
         principalView.add(gpl);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gpl.getSize();
-        gpl.setLocation((desktopSize.width - FrameSize.width) / 18, (desktopSize.height - FrameSize.height) / 4);
+        gpl.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         gpl.setVisible(true);
     }//GEN-LAST:event_btnGestionPuestoTrabajoActionPerformed
 

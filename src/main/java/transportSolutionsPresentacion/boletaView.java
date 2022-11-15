@@ -54,6 +54,7 @@ public class boletaView extends javax.swing.JInternalFrame {
 
     private void activar() {
 
+        btnCerrar.setEnabled(true);
         txtOrigen.setEnabled(true);
         txtDestino.setEnabled(true);
         txtTipoCarga.setEnabled(true);
@@ -76,6 +77,7 @@ public class boletaView extends javax.swing.JInternalFrame {
 
     private void desactivar() {
 
+        btnCerrar.setEnabled(false);
         txtOrigen.setEnabled(false);
         txtDestino.setEnabled(false);
         txtTipoCarga.setEnabled(false);
@@ -268,28 +270,28 @@ public class boletaView extends javax.swing.JInternalFrame {
         }
     }
 
-    private void imprimirBoletaFlete(int id) throws JRException {
-
-        try {
-            Conexion mysql = new Conexion();
-            Connection cn = mysql.conectar();
-
-            JasperReport reporte = null;
-            String ruta = "src\\main\\resources\\boletaReporte.jrxml";
-
-            Map parametro = new HashMap();
-            parametro.clear();
-            parametro.put("b.idBoleta", id);
-
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(new File("").getAbsolutePath() + ruta);
-            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
-            JasperViewer view = new JasperViewer(print, false);
-            view.setVisible(true);
-
-        } catch (JRException ex) {
-            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void imprimirBoletaFlete(int id) throws JRException {
+//
+//        try {
+//            Conexion mysql = new Conexion();
+//            Connection cn = mysql.conectar();
+//
+//            JasperReport reporte = null;
+//            String ruta = "src\\main\\resources\\boletaReporte.jrxml";
+//
+//            Map parametro = new HashMap();
+//            parametro.clear();
+//            parametro.put("b.idBoleta", id);
+//
+//            reporte = (JasperReport) JRLoader.loadObjectFromFile(new File("").getAbsolutePath() + ruta);
+//            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
+//            JasperViewer view = new JasperViewer(print, false);
+//            view.setVisible(true);
+//
+//        } catch (JRException ex) {
+//            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -962,6 +964,7 @@ public class boletaView extends javax.swing.JInternalFrame {
                                         b.setIdUsuario(idUsuario);
                                         b.setIdCaja(transportSolutionsSesionCajaView.idCaja);
                                         b.setTipo(cmbTipo.getSelectedItem().toString());
+                                        b.setIdEstadoCaja(transportSolutionsSesionCajaView.idSesion);
 
                                         int idBoleta = bbd.registrarBoleta(b);
 
@@ -1043,23 +1046,23 @@ public class boletaView extends javax.swing.JInternalFrame {
                                         c.setSerie(serieActual);
                                         cbd.actualizarCorrelativo(c);
 
-                                        try {
-                                            Conexion mysql = new Conexion();
-                                            Connection cn = mysql.conectar();
-                                            String ruta = "src\\main\\java\\transportSolutionsReporte\\boletaReporte.jasper";
-
-                                            Map parametro = new HashMap();
-                                            parametro.clear();
-                                            parametro.put("id", idBoleta);
-
-                                            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
-                                            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
-                                            JasperViewer view = new JasperViewer(print, false);
-                                            view.setVisible(true);
-
-                                        } catch (JRException ex) {
-                                            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
+//                                        try {
+//                                            Conexion mysql = new Conexion();
+//                                            Connection cn = mysql.conectar();
+//                                            String ruta = "src\\main\\java\\transportSolutionsReporte\\boletaReporte.jasper";
+//
+//                                            Map parametro = new HashMap();
+//                                            parametro.clear();
+//                                            parametro.put("id", idBoleta);
+//
+//                                            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+//                                            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
+//                                            JasperViewer view = new JasperViewer(print, false);
+//                                            view.setVisible(true);
+//
+//                                        } catch (JRException ex) {
+//                                            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
+//                                        }
 
                                         limpiarCliente();
                                         limpiarTabla();

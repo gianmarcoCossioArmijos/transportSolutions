@@ -88,6 +88,27 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         }
     }
 
+    private void espaciadoTabla() {
+
+        reporteCierreCaja.getColumnModel().getColumn(0).setPreferredWidth(20);
+        reporteCierreCaja.getColumnModel().getColumn(3).setPreferredWidth(35);
+        reporteCierreCaja.getColumnModel().getColumn(4).setPreferredWidth(35);
+        reporteCierreCaja.getColumnModel().getColumn(5).setPreferredWidth(20);
+        reporteCierreCaja.getColumnModel().getColumn(6).setPreferredWidth(40);
+        reporteCierreCaja.getColumnModel().getColumn(7).setPreferredWidth(40);
+        reporteCierreCaja.getColumnModel().getColumn(8).setPreferredWidth(200);
+    }
+
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteCierreCaja.getModel();
+        int filas = reporteCierreCaja.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,6 +127,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         cmbTurno = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnMostrarCierre = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -137,7 +159,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
 
             },
             new String [] {
-                "FECHA", "CAJA", "TURNO", "USUARIO", "MONTO APERTURA", "MONTO CIERRE", "TOTAL"
+                "ID", "FECHA", "ESTADO", "MONTO APERTURA", "MONTO CIERRE", "ID CAJA", "CAJA", "TURNO", "USUARIO"
             }
         ));
         reporteCierreCaja.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +182,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -178,7 +200,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         btnMostrarSesiones.setBackground(new java.awt.Color(204, 204, 255));
         btnMostrarSesiones.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnMostrarSesiones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_sesion_caja.png"))); // NOI18N
-        btnMostrarSesiones.setText("Mostrar sesiones");
+        btnMostrarSesiones.setText("Mostrar Sesiones");
         btnMostrarSesiones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarSesionesActionPerformed(evt);
@@ -212,6 +234,16 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Turno");
 
+        btnMostrarCierre.setBackground(new java.awt.Color(204, 204, 255));
+        btnMostrarCierre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMostrarCierre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_sesion_caja.png"))); // NOI18N
+        btnMostrarCierre.setText("Mostrar Cierre");
+        btnMostrarCierre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarCierreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,6 +264,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                             .addComponent(cmbCaja, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbTurno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMostrarCierre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -243,34 +276,38 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelMantenimiento)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(btnAperturar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMostrarSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnUsarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMostrarCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalir)
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelMantenimiento)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(btnAperturar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnMostrarSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUsarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(15, 15, 15))
         );
 
         pack();
@@ -308,6 +345,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                     idTurno = Integer.parseInt(id_turno);
                     idSesion = idAperutra;
 
+                    limpiarTabla();
                 } else {
                     JOptionPane op = new JOptionPane("Debe ingresar el monto de caja chica para aperturar");
                     op.setMessageType(JOptionPane.ERROR_MESSAGE);
@@ -348,18 +386,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                     ec.setIdUsuario(Integer.parseInt(idUsuario));
 
                     ecbd.registrarCierreCaja(ec, idSesion);
-
-//                    DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCierreCaja.getModel();
-//                    tabla_temporal = ecbd.reportarCierreCaja(idCaja, fecha, monto_apertura, monto_cierre);
-//                    reporteCierreCaja.setModel(tabla_temporal);
-//
-//                    try {
-//                        rtv = new Reporte();
-//                        rtv.exportarExcel(reporteCierreCaja);
-//                    } catch (IOException e) {
-//                        JOptionPane op = new JOptionPane("Error al exportar excel");
-//                        op.setMessageType(JOptionPane.ERROR_MESSAGE);
-//                    }
+                    limpiarTabla();
                 } else {
                     JOptionPane op = new JOptionPane("Es necesario ID de turno");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
@@ -375,7 +402,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void reporteCierreCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteCierreCajaMouseClicked
-        
+
         DefaultTableModel ventas_tabla = (DefaultTableModel) reporteCierreCaja.getModel();
         int filaSeleccionada = reporteCierreCaja.getSelectedRow();
         id = Integer.parseInt(ventas_tabla.getValueAt(filaSeleccionada, 0).toString());
@@ -392,6 +419,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCierreCaja.getModel();
         tabla_temporal = ecbd.reportarSesionCaja(fecha);
         reporteCierreCaja.setModel(tabla_temporal);
+        espaciadoTabla();
     }//GEN-LAST:event_btnMostrarSesionesActionPerformed
 
     private void btnUsarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsarSesionActionPerformed
@@ -449,9 +477,31 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
 
     }//GEN-LAST:event_reporteCierreCajaMousePressed
 
+    private void btnMostrarCierreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarCierreActionPerformed
+
+        if (id > 0) {
+            if (estado.equals("CERRADO")) {
+
+                EstadoCajaBD ecbd = new EstadoCajaBD();
+                DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCierreCaja.getModel();
+                tabla_temporal = ecbd.reportarCierreCaja(id);
+                reporteCierreCaja.setModel(tabla_temporal);
+
+                reporteCierreCaja.getColumnModel().getColumn(4).setPreferredWidth(200);
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar una sesion cerrada");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe seleccionar una de sesion");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnMostrarCierreActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAperturar;
     public javax.swing.JButton btnCerrar;
+    public javax.swing.JButton btnMostrarCierre;
     public javax.swing.JButton btnMostrarSesiones;
     private javax.swing.JButton btnSalir;
     public javax.swing.JButton btnUsarSesion;

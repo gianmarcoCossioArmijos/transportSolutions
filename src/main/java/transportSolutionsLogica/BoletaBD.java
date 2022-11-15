@@ -19,7 +19,7 @@ public class BoletaBD {
     public int registrarBoleta(Boleta b) {
         
         int idventa = 0;
-        sql = "INSERT INTO boleta(correlativo,fecha,total,idClienteNatural,idUsuario,estado,idCaja,tipo) VALUES(?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO boleta(correlativo,fecha,total,idClienteNatural,idUsuario,estado,idCaja,tipo,idEstadoCaja) VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, b.getCorrelativo());
@@ -30,6 +30,7 @@ public class BoletaBD {
             pst.setString(6, b.getEstado());
             pst.setInt(7, b.getIdCaja());
             pst.setString(8, b.getTipo());
+            pst.setInt(9, b.getIdEstadoCaja());
             
             pst.executeUpdate();
             ResultSet resultado = (ResultSet) pst.getGeneratedKeys();
@@ -46,7 +47,7 @@ public class BoletaBD {
 
     public boolean modificarBoleta(Boleta b) {
 
-        sql = "UPDATE boleta SET total=?,fecha=?,idClienteNatural=?,idUsuario=?,estado=?,idCaja=?,tipo=? WHERE correlativo=?";
+        sql = "UPDATE boleta SET total=?,fecha=?,idClienteNatural=?,idUsuario=?,estado=?,idCaja=?,tipo=?,idEstadoCaja=? WHERE correlativo=?";
         try {
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setDouble(1, b.getTotal());
@@ -57,6 +58,7 @@ public class BoletaBD {
             pst.setString(6, b.getCorrelativo());
             pst.setInt(7, b.getIdCaja());
             pst.setString(8, b.getTipo());
+            pst.setInt(9, b.getIdEstadoCaja());
 
             pst.executeUpdate();
             pst.close();

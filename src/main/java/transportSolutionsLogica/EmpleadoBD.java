@@ -77,7 +77,7 @@ public class EmpleadoBD {
         String[] titulos = {"ID", "DNI", "NOMBRES", "CORREO", "TELEFONO","PUESTO","AREA","SUELDO","SP","BANCO","CUENTA"};
         String[] registros = new String[11];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idEmpleado,dni,nombres,correo,telefono,pt.descripcion,at.descripcion,sueldo,sistemaPensiones,entidadBancaria,cuentaBancaria FROM empleado AS e JOIN areaTrabajo AS at ON e.idAereaTrabajo = at.idAereaTrabajo JOIN puestoTrabajo AS pt ON e.idPuestoTrabajo = pt.idPuestoTrabajo";
+        sql = "SELECT idEmpleado,dni,nombres,correo,telefono,pt.descripcion,at.descripcion,sueldo,sistemaPensiones,entidadBancaria,cuentaBancaria FROM empleado AS e JOIN areaTrabajo AS at ON e.idAereaTrabajo = at.idAereaTrabajo JOIN puestoTrabajo AS pt ON e.idPuestoTrabajo = pt.idPuestoTrabajo ORDER BY nombres DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -129,7 +129,7 @@ public class EmpleadoBD {
         String[] titulos = {"ID", "DNI", "NOMBRES", "CORREO", "TELEFONO","PUESTO","AREA","SUELDO","SP","BANCO","CUENTA"};
         String[] registros = new String[11];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idEmpleado,dni,nombres,correo,telefono,pt.descripcion,at.descripcion,sueldo,sistemaPensiones,entidadBancaria,cuentaBancaria FROM empleado AS e JOIN areaTrabajo AS at ON e.idAereaTrabajo = at.idAereaTrabajo JOIN puestoTrabajo AS pt ON e.idPuestoTrabajo = pt.idPuestoTrabajo WHERE dni='" + dni + "'";
+        sql = "SELECT idEmpleado,dni,nombres,correo,telefono,pt.descripcion,at.descripcion,sueldo,sistemaPensiones,entidadBancaria,cuentaBancaria FROM empleado AS e JOIN areaTrabajo AS at ON e.idAereaTrabajo = at.idAereaTrabajo JOIN puestoTrabajo AS pt ON e.idPuestoTrabajo = pt.idPuestoTrabajo WHERE dni='" + dni + "' ORDER BY nombres DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);

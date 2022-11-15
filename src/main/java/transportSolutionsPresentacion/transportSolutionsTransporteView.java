@@ -208,7 +208,7 @@ public class transportSolutionsTransporteView extends javax.swing.JFrame {
         principalView.add(fc);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = fc.getSize();
-        fc.setLocation((desktopSize.width - FrameSize.width) / 36, (desktopSize.height - FrameSize.height) / 4);
+        fc.setLocation((desktopSize.width - FrameSize.width) / 20, (desktopSize.height - FrameSize.height) / 2);
         fc.setVisible(true);
     }//GEN-LAST:event_btnFleteCargaActionPerformed
 
@@ -218,7 +218,7 @@ public class transportSolutionsTransporteView extends javax.swing.JFrame {
         principalView.add(gv);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = gv.getSize();
-        gv.setLocation((desktopSize.width - FrameSize.width) / 36, (desktopSize.height - FrameSize.height) / 4);
+        gv.setLocation((desktopSize.width - FrameSize.width) / 20, (desktopSize.height - FrameSize.height) / 2);
         gv.setVisible(true);
     }//GEN-LAST:event_btnGestionVehiculosActionPerformed
 

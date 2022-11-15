@@ -19,7 +19,7 @@ public class FacturaBD {
     public int registrarFactura(Factura f) {
         
         int idventa = 0;
-        sql = "INSERT INTO factura(total,fecha,correlativo,idClienteRuc,idUsuario,estado,tipo,idCaja) VALUES(?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO factura(total,fecha,correlativo,idClienteRuc,idUsuario,estado,tipo,idCaja,idEstadoCaja) VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setDouble(1, f.getTotal());
@@ -30,6 +30,7 @@ public class FacturaBD {
             pst.setString(6, f.getEstado());
             pst.setString(7, f.getTipo());
             pst.setInt(8, f.getIdCaja());
+            pst.setInt(9, f.getIdEstadoCaja());
             
             pst.executeUpdate();
             ResultSet resultado = (ResultSet) pst.getGeneratedKeys();
@@ -46,7 +47,7 @@ public class FacturaBD {
 
     public boolean modificarFactura(Factura f) {
 
-        sql = "UPDATE factura SET total=?,fecha=?,idClienteRuc=?,idUsuario=?,estado=?,tipo=?,idCaja=? WHERE correlativo=?";
+        sql = "UPDATE factura SET total=?,fecha=?,idClienteRuc=?,idUsuario=?,estado=?,tipo=?,idCaja=?,idEstadoCaja=? WHERE correlativo=?";
         try {
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setDouble(1, f.getTotal());
@@ -57,6 +58,7 @@ public class FacturaBD {
             pst.setString(6, f.getEstado());
             pst.setString(7, f.getTipo());
             pst.setInt(8, f.getIdCaja());
+            pst.setInt(9, f.getIdEstadoCaja());
 
             pst.executeUpdate();
             pst.close();

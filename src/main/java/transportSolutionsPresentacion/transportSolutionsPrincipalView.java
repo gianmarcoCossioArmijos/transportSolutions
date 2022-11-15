@@ -293,7 +293,7 @@ public class transportSolutionsPrincipalView extends javax.swing.JFrame {
         principalView.add(cc);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = cc.getSize();
-        cc.setLocation((desktopSize.width - FrameSize.width) / 18, (desktopSize.height - FrameSize.height) / 4);
+        cc.setLocation((desktopSize.width - FrameSize.width) / 30, (desktopSize.height - FrameSize.height) / 2);
         cc.setVisible(true);
         
     }//GEN-LAST:event_btnSesionCajaActionPerformed
@@ -344,7 +344,7 @@ public class transportSolutionsPrincipalView extends javax.swing.JFrame {
         principalView.add(ce);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = ce.getSize();
-        ce.setLocation((desktopSize.width - FrameSize.width) / 36, (desktopSize.height - FrameSize.height) / 4);
+        ce.setLocation((desktopSize.width - FrameSize.width) / 26, (desktopSize.height - FrameSize.height) / 2);
         ce.show();
     }//GEN-LAST:event_btnDocumentoTransporteActionPerformed
 

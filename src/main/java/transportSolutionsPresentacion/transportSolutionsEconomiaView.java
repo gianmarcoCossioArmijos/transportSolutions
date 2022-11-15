@@ -144,7 +144,7 @@ public class transportSolutionsEconomiaView extends javax.swing.JFrame {
         principalView.add(e);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = e.getSize();
-        e.setLocation((desktopSize.width - FrameSize.width) / 5, (desktopSize.height - FrameSize.height) / 2);
+        e.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         e.setVisible(true);
     }//GEN-LAST:event_btnGestionTipoUsuarioActionPerformed
 
@@ -159,7 +159,7 @@ public class transportSolutionsEconomiaView extends javax.swing.JFrame {
         principalView.add(i);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = i.getSize();
-        i.setLocation((desktopSize.width - FrameSize.width) / 5, (desktopSize.height - FrameSize.height) / 2);
+        i.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         i.setVisible(true);
     }//GEN-LAST:event_btnGestionUsuarioActionPerformed
 
@@ -169,7 +169,7 @@ public class transportSolutionsEconomiaView extends javax.swing.JFrame {
         principalView.add(p);
         Dimension desktopSize = principalView.getSize();
         Dimension FrameSize = p.getSize();
-        p.setLocation((desktopSize.width - FrameSize.width) / 5, (desktopSize.height - FrameSize.height) / 2);
+        p.setLocation((desktopSize.width - FrameSize.width) / 10, (desktopSize.height - FrameSize.height) / 2);
         p.setVisible(true);
     }//GEN-LAST:event_btnGestionProveedoresActionPerformed
 

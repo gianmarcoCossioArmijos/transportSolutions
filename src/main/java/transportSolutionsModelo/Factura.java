@@ -11,11 +11,12 @@ public class Factura extends ClienteRuc {
     private int idClienteRuc;
     private int idUsuario;
     private int idCaja;
+    private int idEstadoCaja;
 
     public Factura() {
     }
 
-    public Factura(double total, String fecha, String correlativo, String estado, String tipo, int idClienteRuc, int idUsuario, int idCaja) {
+    public Factura(double total, String fecha, String correlativo, String estado, String tipo, int idClienteRuc, int idUsuario, int idCaja, int idEstadoCaja) {
         
         this.idCaja = idCaja;
         this.total = total;
@@ -25,6 +26,7 @@ public class Factura extends ClienteRuc {
         this.tipo = tipo;
         this.idClienteRuc = idClienteRuc;
         this.idUsuario = idUsuario;
+        this.idEstadoCaja = idEstadoCaja;
     }
 
     public int getIdCaja() {
@@ -89,5 +91,13 @@ public class Factura extends ClienteRuc {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public int getIdEstadoCaja() {
+        return idEstadoCaja;
+    }
+
+    public void setIdEstadoCaja(int idEstadoCaja) {
+        this.idEstadoCaja = idEstadoCaja;
     }
 }
