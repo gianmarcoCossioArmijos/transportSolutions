@@ -111,11 +111,11 @@ public class transportSolutionFleteEncomiendaView extends javax.swing.JInternalF
         setClosable(true);
         setIconifiable(true);
         setTitle("FLETE ENCOMIENDA");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/asignar_flete_carga.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/asignar_flete_encomienda.png"))); // NOI18N
 
         btnAsignarFleteEncomienda.setBackground(new java.awt.Color(204, 204, 255));
         btnAsignarFleteEncomienda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAsignarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo_vehiculo.png"))); // NOI18N
+        btnAsignarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asignar_fleteEncomienda.png"))); // NOI18N
         btnAsignarFleteEncomienda.setText("Asignar Flete Encomienda");
         btnAsignarFleteEncomienda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class transportSolutionFleteEncomiendaView extends javax.swing.JInternalF
 
         btnModificarFleteEncomienda.setBackground(new java.awt.Color(204, 204, 255));
         btnModificarFleteEncomienda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnModificarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_vehiculos.png"))); // NOI18N
+        btnModificarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modificar_flete_encomienda.png"))); // NOI18N
         btnModificarFleteEncomienda.setText("Modificar Flete Encomienda");
         btnModificarFleteEncomienda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,7 +263,7 @@ public class transportSolutionFleteEncomiendaView extends javax.swing.JInternalF
 
         btnLiberarFleteEncomienda.setBackground(new java.awt.Color(204, 204, 255));
         btnLiberarFleteEncomienda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLiberarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_vehiculos.png"))); // NOI18N
+        btnLiberarFleteEncomienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/liberar_flete_encomienda.png"))); // NOI18N
         btnLiberarFleteEncomienda.setText("Liberar Flete Encomienda");
         btnLiberarFleteEncomienda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

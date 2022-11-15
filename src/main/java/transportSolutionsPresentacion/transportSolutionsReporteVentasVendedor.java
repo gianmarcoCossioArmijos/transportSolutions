@@ -11,7 +11,7 @@ import transportSolutionsLogica.UsuarioBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsReporteVentasVendedor extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsReporteVentasVendedor() {
@@ -26,7 +26,7 @@ public class transportSolutionsReporteVentasVendedor extends javax.swing.JIntern
         reporteVenta.getColumnModel().getColumn(3).setPreferredWidth(170);
     }
 
-    private void limpiar() {
+    private void limpiarVenta() {
 
         DefaultTableModel temp = (DefaultTableModel) reporteVenta.getModel();
         int filas = reporteVenta.getRowCount();
@@ -34,11 +34,14 @@ public class transportSolutionsReporteVentasVendedor extends javax.swing.JIntern
         for (int i = 0; filas > i; i++) {
             temp.removeRow(0);
         }
+    }
+
+    private void limpiarDetalleVenta() {
 
         DefaultTableModel temporal = (DefaultTableModel) reporteDetalleVenta.getModel();
         int fila = reporteDetalleVenta.getRowCount();
 
-        for (int i = 0; filas > i; i++) {
+        for (int i = 0; fila > i; i++) {
             temporal.removeRow(0);
         }
     }
@@ -240,25 +243,42 @@ public class transportSolutionsReporteVentasVendedor extends javax.swing.JIntern
         UsuarioBD ubd = new UsuarioBD();
         String id = ubd.buscarUsuarioDni(txtVendedor.getText());
 
-        if (id.length() > 0) {
+        if (txtVendedor.getText().length() > 0) {
+            if (!"SELECCIONAR".equals(cmbTipoDocumento.getSelectedItem().toString())) {
 
-            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+                if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
 
-                DefaultTableModel tabla_temporal;
-                BoletaBD bbd = new BoletaBD();
-                tabla_temporal = bbd.reportarBoletaVendedor(Integer.parseInt(id));
-                reporteVenta.setModel(tabla_temporal);
-                espaciadoTabla();
+                    DefaultTableModel tabla_temporal;
+                    BoletaBD bbd = new BoletaBD();
+                    tabla_temporal = bbd.reportarBoletaVendedor(Integer.parseInt(id));
 
+                    if (tabla_temporal.getRowCount() > 0) {
+
+                        reporteVenta.setModel(tabla_temporal);
+                        espaciadoTabla();
+
+                    } else {
+                        limpiarVenta();
+                    }
+                } else {
+
+                    DefaultTableModel tabla_temporal;
+                    FacturaBD fbd = new FacturaBD();
+                    tabla_temporal = fbd.reportarFacturaVendedor(Integer.parseInt(id));
+
+                    if (tabla_temporal.getRowCount() > 0) {
+
+                        reporteVenta.setModel(tabla_temporal);
+                        espaciadoTabla();
+
+                    } else {
+                        limpiarVenta();
+                    }
+                }
             } else {
-
-                DefaultTableModel tabla_temporal;
-                FacturaBD fbd = new FacturaBD();
-                tabla_temporal = fbd.reportarFacturaVendedor(Integer.parseInt(id));
-                reporteVenta.setModel(tabla_temporal);
-                espaciadoTabla();
+                JOptionPane op = new JOptionPane("ebe ingresar dni del vendedor ");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
-
         } else {
             JOptionPane op = new JOptionPane("Debe ingresar dni del vendedor");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);
@@ -267,49 +287,66 @@ public class transportSolutionsReporteVentasVendedor extends javax.swing.JIntern
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
 
-        limpiar();
+        limpiarVenta();
+        limpiarDetalleVenta();
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void reporteVentaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteVentaMousePressed
-        
+
         BoletaBD bbd = new BoletaBD();
         DefaultTableModel tabla_temporal = (DefaultTableModel) reporteVenta.getModel();
         int fila_seleccionada = reporteVenta.getSelectedRow();
         String id = tabla_temporal.getValueAt(fila_seleccionada, 0).toString();
-        String verificar =  bbd.buscarBoleta(Integer.parseInt(id));
-        
+        String verificar = bbd.buscarBoleta(Integer.parseInt(id));
+
         if (verificar != null) {
 
             int idventa = Integer.parseInt(id);
             DetalleBoletaBD dbbd = new DetalleBoletaBD();
             DefaultTableModel tabla = dbbd.buscarDetalleBoleta(idventa);
 
-            reporteDetalleVenta.setModel(tabla);
+            if (tabla.getRowCount() > 0) {
+
+                reporteDetalleVenta.setModel(tabla);
+
+            } else {
+                limpiarDetalleVenta();
+            }
         } else if (verificar == null) {
-            
+
             int idventa = Integer.parseInt(id);
             DetalleFacturaBD dfbd = new DetalleFacturaBD();
             DefaultTableModel tabla = dfbd.buscarDetalleFactura(idventa);
 
-            reporteDetalleVenta.setModel(tabla);
+            if (tabla.getRowCount() > 0) {
+
+                reporteDetalleVenta.setModel(tabla);
+
+            } else {
+                limpiarDetalleVenta();
+            }
         }
     }//GEN-LAST:event_reporteVentaMousePressed
 
     private void btnImprimirVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirVentaActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirVentaActionPerformed
 
     private void btnImprimirDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirDetalleActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteDetalleVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirDetalleActionPerformed
 

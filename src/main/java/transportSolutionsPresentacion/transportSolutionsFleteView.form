@@ -108,7 +108,7 @@
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/nuevo_vehiculo.png"/>
+          <Image iconType="3" name="/asignarFlete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Asignar Flete"/>
       </Properties>
@@ -357,7 +357,7 @@
           <Font name="Segoe UI" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/mostrar_vehiculos.png"/>
+          <Image iconType="3" name="/liberar_flete.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Liberar Flete"/>
       </Properties>

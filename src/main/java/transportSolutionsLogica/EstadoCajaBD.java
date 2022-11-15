@@ -19,14 +19,15 @@ public class EstadoCajaBD {
     public int registrarAperturaCaja(EstadoCaja e) {
 
         int idventa = 0;
-        sql = "INSERT INTO estadoCaja(estado,montoCajaChica,idCaja,idTurno,idUsuario) VALUES(?,?,?,?,?)";
+        sql = "INSERT INTO estadoCaja(estado,montoApertura,fecha,idCaja,idTurno,idUsuario) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement pst = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, e.getEstado());
-            pst.setDouble(2, e.getMontoCajaChica());
-            pst.setInt(3, e.getIdCaja());
-            pst.setInt(4, e.getIdTurno());
-            pst.setInt(5, e.getIdUsuario());
+            pst.setDouble(2, e.getMontoApertura());
+            pst.setString(3, e.getFecha());
+            pst.setInt(4, e.getIdCaja());
+            pst.setInt(5, e.getIdTurno());
+            pst.setInt(6, e.getIdUsuario());
 
             pst.executeUpdate();
             ResultSet resultado = (ResultSet) pst.getGeneratedKeys();
@@ -41,16 +42,18 @@ public class EstadoCajaBD {
         }
     }
 
-    public boolean registrarCierreCaja(EstadoCaja e) {
+    public boolean registrarCierreCaja(EstadoCaja e, int id) {
 
-        sql = "INSERT INTO estadoCaja(estado,montoCajaChica,idCaja,idTurno,idUsuario) VALUES(?,?,?,?,?)";
+        sql = "UPDATE estadoCaja SET estado=?,montoApertura=?,montoCierre=?,fecha=?,idCaja=?,idTurno=?,idUsuario=? WHERE idEstadoCaja='" + id + "'";
         try {
             PreparedStatement pst = cn.prepareStatement(sql);
             pst.setString(1, e.getEstado());
-            pst.setDouble(2, e.getMontoCajaChica());
-            pst.setInt(3, e.getIdCaja());
-            pst.setInt(4, e.getIdTurno());
-            pst.setInt(5, e.getIdUsuario());
+            pst.setDouble(2, e.getMontoApertura());
+            pst.setDouble(3, e.getMontoCierre());
+            pst.setString(4, e.getFecha());
+            pst.setInt(5, e.getIdCaja());
+            pst.setInt(6, e.getIdTurno());
+            pst.setInt(7, e.getIdUsuario());
 
             pst.executeUpdate();
             pst.close();
@@ -63,89 +66,26 @@ public class EstadoCajaBD {
         }
     }
 
-    public DefaultTableModel reportarCierreCaja(String fecha, double montoApertura, double montoCierre, int id) {
+    public DefaultTableModel reportarSesionCaja(String fecha) {
 
         DefaultTableModel modelo;
-        String[] titulos = {"FECHA","TOTAL","CAJA CHICA APERTURA","CAJA CHICA CIERRE","CAJA","TURNO","USUARIO"};
-        String[] registros = new String[7];
+        String[] titulos = {"ID","FECHA","ESTADO","MONTO APERTURA","MONTO CIERRE","ID CAJA","CAJA","TURNO","USUARIO"};
+        String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT SUM(V.total) AS total,c.descripcion AS caja,t.descripcion AS turno,u.nombres AS usuario FROM ( SELECT SUM(total) AS total,idCaja AS caja FROM boleta WHERE idCaja='" + id + "' UNION ALL SELECT SUM(total) AS total,idCaja AS caja FROM factura WHERE idCaja='" + id + "') V JOIN caja as c ON V.caja = c.idCaja JOIN estadoCaja AS ec ON c.idCaja = ec.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario";
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                registros[0] = fecha;
-                registros[1] = "S/." + rs.getString("total");
-                registros[2] = "S/." + montoApertura;
-                registros[3] = "S/." + montoCierre;
-                registros[4] = rs.getString("caja");
-                registros[5] = rs.getString("turno");
-                registros[6] = rs.getString("usuario");
-
-                modelo.addRow(registros);
-            }
-            rs.close();
-            st.close();
-            cn.close();
-            return modelo;
-        } catch (Exception e) {
-            JOptionPane op = new JOptionPane("Error al reportar cierre de caja");
-            op.setMessageType(JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-    }
-
-    public DefaultTableModel reportarAperturaCaja(String fecha, int id) {
-
-        DefaultTableModel modelo;
-        String[] titulos = {"FECHA", "ID", "ESTADO", "CAJA CHICA", "ID CAJA", "CAJA", "TURNO", "USUARIO"};
-        String[] registros = new String[8];
-        modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT ec.idEstadoCaja,ec.estado,ec.montoCajaChica,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario where idEstadoCaja='" + id + "'";
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                registros[0] = fecha;
-                registros[1] = rs.getString("ec.idEstadoCaja");
-                registros[2] = rs.getString("ec.estado");
-                registros[3] = "S/." + rs.getString("ec.montoCajaChica");
-                registros[4] = rs.getString("ec.idCaja");
-                registros[5] = rs.getString("c.descripcion");
-                registros[6] = rs.getString("t.descripcion");
-                registros[7] = rs.getString("u.nombres");
-
-                modelo.addRow(registros);
-            }
-            rs.close();
-            st.close();
-            cn.close();
-            return modelo;
-        } catch (Exception e) {
-            JOptionPane op = new JOptionPane("Error al reportar cierre de caja");
-            op.setMessageType(JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-    }
-
-    public DefaultTableModel reportarSesionCaja() {
-
-        DefaultTableModel modelo;
-        String[] titulos = {"ID","ESTADO","CAJA CHICA","ID CAJA","CAJA","TURNO","USUARIO"};
-        String[] registros = new String[7];
-        modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT ec.idEstadoCaja,ec.estado,ec.montoCajaChica,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario ORDER BY ec.idEstadoCaja DESC";
+        sql = "SELECT ec.idEstadoCaja,ec.fecha,ec.estado,ec.montoApertura,ec.montoCierre,ec.idCaja,c.descripcion,t.descripcion,u.nombres FROM estadoCaja AS ec JOIN caja AS c ON ec.idCaja = c.idCaja JOIN turno AS t ON ec.idTurno = t.idTurno JOIN usuario AS u ON ec.idUsuario = u.idUsuario WHERE fecha='" + fecha + "' ORDER BY ec.idEstadoCaja DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 registros[0] = rs.getString("ec.idEstadoCaja");
-                registros[1] = rs.getString("ec.estado");
-                registros[2] = rs.getString("ec.montoCajaChica");
-                registros[3] = rs.getString("ec.idCaja");
-                registros[4] = rs.getString("c.descripcion");
-                registros[5] = rs.getString("t.descripcion");
-                registros[6] = rs.getString("u.nombres");
+                registros[1] = rs.getString("ec.fecha");
+                registros[2] = rs.getString("ec.estado");
+                registros[3] = rs.getString("ec.montoApertura");
+                registros[4] = rs.getString("ec.montoCierre");
+                registros[5] = rs.getString("ec.idCaja");
+                registros[6] = rs.getString("c.descripcion");
+                registros[7] = rs.getString("t.descripcion");
+                registros[8] = rs.getString("u.nombres");
 
                 modelo.addRow(registros);
             }

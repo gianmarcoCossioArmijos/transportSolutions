@@ -109,7 +109,7 @@ public class FacturaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE f.idUsuario='" + id + "'";
+        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE f.idUsuario='" + id + "' ORDER BY idFactura DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -143,7 +143,7 @@ public class FacturaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE f.idClienteRuc='" + id +"'";
+        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE f.idClienteRuc='" + id +"' ORDER BY idFactura DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -243,9 +243,9 @@ public class FacturaBD {
 
         DefaultTableModel modelo;
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
-        String[] registros = new String[8];
+        String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE fecha='" + fecha + "'";
+        sql = "SELECT idFactura,total,fecha,correlativo,estado,f.tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE fecha='" + fecha + "' ORDER BY idFactura DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -255,7 +255,7 @@ public class FacturaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("tipo");
+                registros[5] = rs.getString("f.tipo");
                 registros[6] = rs.getString("cr.razonSocial");
                 registros[7] = rs.getString("u.nombres");
                 registros[8] = rs.getString("c.descripcion");
@@ -279,7 +279,7 @@ public class FacturaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFactura,total,fecha,correlativo,estado,tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'";
+        sql = "SELECT idFactura,total,fecha,correlativo,estado,f.tipo,cr.razonSocial,u.nombres,c.descripcion FROM factura AS f JOIN clienteRuc AS cr ON f.idClienteRuc = cr.idClienteRuc JOIN usuario AS u ON f.idUsuario = u.idUsuario JOIN caja as c ON f.idCaja=c.idCaja WHERE fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' ORDER BY idFactura DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -289,7 +289,7 @@ public class FacturaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("tipo");
+                registros[5] = rs.getString("f.tipo");
                 registros[6] = rs.getString("cr.razonSocial");
                 registros[7] = rs.getString("u.nombres");
                 registros[8] = rs.getString("c.descripcion");
@@ -356,17 +356,17 @@ public class FacturaBD {
         }
     }
     
-    public String buscarIdFactura(String correlativo) {
+    public String buscarIdFactura(int id) {
 
-        String id = null;
-        sql = "SELECT idFactura FROM factura WHERE correlativo='" + correlativo + "'";
+        String registro = null;
+        sql = "SELECT correlativo FROM factura WHERE idFactura='" + id + "'";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                id = rs.getString("idFactura");
+                registro = rs.getString("correlativo");
             }
-            return id;
+            return registro;
         } catch (Exception e) {
             JOptionPane op = new JOptionPane("Problemas al encontrar id de factura");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);

@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import transportSolutionsLogica.CargaBD;
 import transportSolutionsLogica.FleteBD;
 import transportSolutionsLogica.FleteCargaBD;
 import transportSolutionsLogica.FleteEncomiendaBD;
-import transportSolutionsLogica.RecepcionBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsHistorialFeleteView extends javax.swing.JInternalFrame {
@@ -18,7 +16,6 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
 
     public transportSolutionsHistorialFeleteView() {
         initComponents();
-        txtId.setEnabled(false);
     }
 
     public void limpiarTabla() {
@@ -48,7 +45,6 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
         btnDescargar = new javax.swing.JButton();
         dcFecha = new com.toedter.calendar.JDateChooser();
         cmbEstado = new javax.swing.JComboBox<>();
-        txtId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -128,8 +124,7 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
                     .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbFlete, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbEstado, 0, 155, Short.MAX_VALUE)
-                    .addComponent(txtId))
+                    .addComponent(cmbEstado, 0, 155, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -145,9 +140,7 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
                         .addComponent(cmbFlete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(46, 46, 46)
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDescargar)
@@ -169,8 +162,8 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        if (cmbFlete.getSelectedItem().toString().length() > 0) {
-            if (cmbEstado.getSelectedItem().toString().length() > 0) {
+        if (!"SELECCIONAR".equals(cmbFlete.getSelectedItem().toString())) {
+            if (!"SELECCIONAR".equals(cmbEstado.getSelectedItem().toString())) {
                 if (dcFecha.getCalendar().toString().length() > 0) {
 
                     if (cmbFlete.getSelectedItem().toString().equals("FLETE CARGA")) {
@@ -277,6 +270,5 @@ public class transportSolutionsHistorialFeleteView extends javax.swing.JInternal
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JDesktopPane panelMantenimiento;
     public static javax.swing.JTable reporteFletes;
-    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

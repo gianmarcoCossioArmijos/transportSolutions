@@ -1,6 +1,7 @@
 package transportSolutionsPresentacion;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.BoletaBD;
 import transportSolutionsLogica.ClienteNaturalBD;
@@ -8,7 +9,7 @@ import transportSolutionsLogica.DetalleBoletaBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsReporteClienteNatural extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsReporteClienteNatural() {
@@ -20,6 +21,27 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
         reporteVenta.getColumnModel().getColumn(5).setPreferredWidth(170);
         reporteVenta.getColumnModel().getColumn(6).setPreferredWidth(170);
     }
+
+    private void limpiarVenta() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteVenta.getModel();
+        int filas = reporteVenta.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
+
+    private void limpiarDetalleVenta() {
+
+        DefaultTableModel temporal = (DefaultTableModel) reporteDetalleVenta.getModel();
+        int fila = reporteDetalleVenta.getRowCount();
+
+        for (int i = 0; fila > i; i++) {
+            temporal.removeRow(0);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,6 +56,7 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
         reporteVenta = new javax.swing.JTable();
         btnImprimir = new javax.swing.JButton();
         btnImprimir1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -120,6 +143,14 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,7 +163,8 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
                             .addComponent(jLabel1)
                             .addComponent(txtBuscarDni, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                             .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -159,7 +191,9 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addGap(31, 31, 31)
                         .addComponent(btnImprimir)
                         .addGap(27, 27, 27)
                         .addComponent(btnImprimir1)
@@ -185,20 +219,11 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
     }//GEN-LAST:event_reporteDetalleVentaMouseClicked
 
     private void txtBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarDniActionPerformed
-        
-        ClienteNaturalBD cnbd = new ClienteNaturalBD();
-        String dni = txtBuscarDni.getText();
-        int id = Integer.parseInt(cnbd.buscarClienteNaturalDNI(dni)); 
-        
-        BoletaBD bbd = new BoletaBD();
-        DefaultTableModel tabla_temporal;
-        tabla_temporal = bbd.reportarBoletaCliente(id);
-        reporteVenta.setModel(tabla_temporal);
-        espaciadoTabla();
+
     }//GEN-LAST:event_txtBuscarDniActionPerformed
 
     private void reporteVentaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteVentaMousePressed
-        
+
         int fila_seleccionada = reporteVenta.getSelectedRow();
         DefaultTableModel tabla_temporal = (DefaultTableModel) reporteVenta.getModel();
         int idventa = Integer.parseInt(tabla_temporal.getValueAt(fila_seleccionada, 0).toString());
@@ -206,28 +231,65 @@ public class transportSolutionsReporteClienteNatural extends javax.swing.JIntern
         DetalleBoletaBD dbbd = new DetalleBoletaBD();
         DefaultTableModel tabla = dbbd.buscarDetalleBoleta(idventa);
 
-        reporteDetalleVenta.setModel(tabla);
+        if (tabla_temporal.getRowCount() > 0) {
+
+            reporteDetalleVenta.setModel(tabla);
+
+        } else {
+            limpiarDetalleVenta();
+        }
     }//GEN-LAST:event_reporteVentaMousePressed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimir1ActionPerformed
-        
+
         try {
             rtv = new Reporte();
-            rtv.exportarExcel(reporteVenta);
+            rtv.exportarExcel(reporteDetalleVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimir1ActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (txtBuscarDni.getText().length() > 0) {
+
+            ClienteNaturalBD cnbd = new ClienteNaturalBD();
+            String dni = txtBuscarDni.getText();
+            int id = Integer.parseInt(cnbd.obtenerIdClienteNatural(dni));
+
+            BoletaBD bbd = new BoletaBD();
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = bbd.reportarBoletaCliente(id);
+
+            if (tabla_temporal.getRowCount() > 0) {
+
+                reporteVenta.setModel(tabla_temporal);
+                espaciadoTabla();
+
+            } else {
+                limpiarVenta();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar dni");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnImprimir1;
     private javax.swing.JButton btnSalir;

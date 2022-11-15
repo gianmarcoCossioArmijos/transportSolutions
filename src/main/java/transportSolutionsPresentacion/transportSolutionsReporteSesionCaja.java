@@ -160,6 +160,8 @@ public class transportSolutionsReporteSesionCaja extends javax.swing.JInternalFr
             rtv = new Reporte();
             rtv.exportarExcel(reporteSesionCaja);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 

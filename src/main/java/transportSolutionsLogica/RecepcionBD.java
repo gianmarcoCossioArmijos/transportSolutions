@@ -106,7 +106,7 @@ public class RecepcionBD {
         String[] titulos = {"ID","FECHA VENTA","ORIGEN","DESTINO","DESCRIPCION","ESTADO","DNI DESTINATARIO","DESTINATARIO","CORRELATIVO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idRecepcion,fechaVenta,origen,destino,descripcion,estado,dniDestinatario,destinatario,correlativo FROM recepcion WHERE estado='PENDIENTE' AND fechaVenta='" + fecha + "' ";
+        sql = "SELECT idRecepcion,fechaVenta,origen,destino,descripcion,estado,dniDestinatario,destinatario,correlativo FROM recepcion WHERE estado='PENDIENTE' AND fechaVenta='" + fecha + "' ORDER BY idRecepcion DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -140,7 +140,7 @@ public class RecepcionBD {
         String[] titulos = {"ID","FECHA VENTA","ORIGEN","DESTINO","DESCRIPCION","ESTADO","DNI DESTINATARIO","DESTINATARIO","CORRELATIVO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idRecepcion,fechaVenta,origen,destino,descripcion,estado,dniDestinatario,destinatario,correlativo FROM recepcion WHERE fechaVenta='" + fecha + "' OR estado='" + estado + "' ";
+        sql = "SELECT idRecepcion,fechaVenta,origen,destino,descripcion,estado,dniDestinatario,destinatario,correlativo FROM recepcion WHERE fechaVenta='" + fecha + "' OR estado='" + estado + "' ORDER BY idRecepcion DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -163,6 +163,24 @@ public class RecepcionBD {
             return modelo;
         } catch (Exception ex) {
             JOptionPane op = new JOptionPane("Error al reportar recepcion");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public String BuscarIdRecepcion(int id) {
+
+        String registro = null;
+        sql = "SELECT estado FROM recepcion WHERE idRecepcion='" + id + "'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                registro = rs.getString("estado");
+            }
+            return registro;
+        } catch (Exception ex) {
+            JOptionPane op = new JOptionPane("Error al buscar id recepcion");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);
             return null;
         }

@@ -20,6 +20,15 @@ public class transportSolutionsGestionEgresoView extends javax.swing.JInternalFr
         reporteEgresos.getColumnModel().getColumn(0).setPreferredWidth(2);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteEgresos.getModel();
+        int filas = reporteEgresos.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,7 +171,7 @@ public class transportSolutionsGestionEgresoView extends javax.swing.JInternalFr
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDescargar1)
+                .addComponent(btnDescargar1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDescargar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +246,14 @@ public class transportSolutionsGestionEgresoView extends javax.swing.JInternalFr
             int año = dcFecha.getCalendar().get(Calendar.YEAR);
             String fecha = año + "-" + mes + "-" + dia;
             tabla_temporal = ebd.buscarEgresoFecha(fecha);
-            reporteEgresos.setModel(tabla_temporal);
+            
+            if (tabla_temporal.getRowCount() > 0) {
+                
+                reporteEgresos.setModel(tabla_temporal);
+                espaciadoTabla();
+            } else {
+                limpiarTabla();
+            }
         } else {
             JOptionPane op = new JOptionPane("Debe ingresar Fecha");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);

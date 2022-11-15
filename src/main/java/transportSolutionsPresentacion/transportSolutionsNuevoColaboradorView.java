@@ -272,7 +272,7 @@ public class transportSolutionsNuevoColaboradorView extends javax.swing.JInterna
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4)
@@ -317,7 +317,7 @@ public class transportSolutionsNuevoColaboradorView extends javax.swing.JInterna
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtSueldo)
                                     .addComponent(txtAfp, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,12 +358,12 @@ public class transportSolutionsNuevoColaboradorView extends javax.swing.JInterna
                     .addComponent(jLabel10)
                     .addComponent(txtCuentaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEntidadFinanciera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45))
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -383,11 +383,11 @@ public class transportSolutionsNuevoColaboradorView extends javax.swing.JInterna
         
         if (txtDni.getText().length() > 0) {
             if (txtNombres.getText().length() > 0) {
-                if (cmbAreaTrabajo.getSelectedItem().toString().length() > 0) {
-                    if (cmbPuesto.getSelectedItem().toString().length() > 0) {
+                if (!"SELECCIONAR".equals(cmbAreaTrabajo.getSelectedItem().toString())) {
+                    if (!"SELECCIONAR".equals(cmbPuesto.getSelectedItem().toString())) {
                         if (txtTelefono.getText().length() > 0) {
                             if (txtCorreo.getText().length() > 0) {
-                                if (cmbSistemaPensiones.getSelectedItem().toString().length() > 0) {
+                                if (!"SELECCIONAR".equals(cmbSistemaPensiones.getSelectedItem().toString())) {
                                     if (txtEntidadFinanciera.getText().length() > 0) {
                                         if (txtCuentaBancaria.getText().length() > 0) {
                                             
@@ -406,9 +406,6 @@ public class transportSolutionsNuevoColaboradorView extends javax.swing.JInterna
                                                 e.setSistemaPensiones("SNP");
                                             } else if (cmbSistemaPensiones.getSelectedItem().toString().equals("AFP")) {
                                                 e.setSistemaPensiones(txtAfp.getText().toUpperCase());
-                                            } else {
-                                                JOptionPane op = new JOptionPane("Debe seleccionar sistema de pensiones");
-                                                op.setMessageType(JOptionPane.WARNING_MESSAGE);
                                             }
                                             
                                             AreaTrabajoBD atbd = new AreaTrabajoBD();

@@ -145,59 +145,57 @@ public class transportSolutionsModificarCorrelativo extends javax.swing.JInterna
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addGap(102, 102, 102)
+                        .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(txtCodigo)
-                            .addComponent(txtSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                            .addComponent(txtSerie)
+                            .addComponent(txtID)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72)
+                                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 60, Short.MAX_VALUE)
+                .addGap(18, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(58, 58, 58))
         );
 
         pack();
@@ -212,32 +210,34 @@ public class transportSolutionsModificarCorrelativo extends javax.swing.JInterna
 
         if (txtID.getText().length() > 0) {
             if (txtCodigo.getText().length() > 0) {
-                if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+                if (!"SELECCIONAR".equals(cmbTipoDocumento.getSelectedItem().toString())) {
+                    
+                    if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
 
-                    CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
-                    CorrelativoBoleta cb = new CorrelativoBoleta();
-                    cb.setSerie(txtSerie.getText());
-                    cb.setCodigo(txtCodigo.getText());
-                    int idBoleta = Integer.parseInt(txtID.getText());
+                        CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
+                        CorrelativoBoleta cb = new CorrelativoBoleta();
+                        cb.setSerie(txtSerie.getText());
+                        cb.setCodigo(txtCodigo.getText());
+                        int idBoleta = Integer.parseInt(txtID.getText());
 
-                    cbbd.modificarCorrelativoB(cb, idBoleta);
-                    limpiar();
-                    JOptionPane op = new JOptionPane("correlativo modificado");
-                    op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                        cbbd.modificarCorrelativoB(cb, idBoleta);
+                        limpiar();
+                        JOptionPane op = new JOptionPane("correlativo modificado");
+                        op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
 
-                } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+                    } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
 
-                    CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
-                    CorrelativoFactura cf = new CorrelativoFactura();
-                    cf.setSerie(txtSerie.getText());
-                    cf.setCodigo(txtCodigo.getText());
-                    int idFactura = Integer.parseInt(txtID.getText());
+                        CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
+                        CorrelativoFactura cf = new CorrelativoFactura();
+                        cf.setSerie(txtSerie.getText());
+                        cf.setCodigo(txtCodigo.getText());
+                        int idFactura = Integer.parseInt(txtID.getText());
 
-                    cfbd.modificarCorrelativoF(cf, idFactura);
-                    limpiar();
-                    JOptionPane op = new JOptionPane("correlativo modificado");
-                    op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-
+                        cfbd.modificarCorrelativoF(cf, idFactura);
+                        limpiar();
+                        JOptionPane op = new JOptionPane("correlativo modificado");
+                        op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                    } 
                 } else {
                     JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);

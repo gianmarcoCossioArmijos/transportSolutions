@@ -107,7 +107,7 @@ public class CargaBD {
         String[] titulos = {"ID","FECHA VENTA","ORIGEN","DESTINO","DNI","DESTINATARIO","DESCRIPCION","ESTADO","CORRELATIVO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idCarga,fechaVenta,origen,destino,dniDestinatario,destinatario,descripcion,estado,correlativo FROM carga WHERE estado='PENDIENTE' AND fechaVenta='" + fecha + "' ";
+        sql = "SELECT idCarga,fechaVenta,origen,destino,dniDestinatario,destinatario,descripcion,estado,correlativo FROM carga WHERE estado='PENDIENTE' AND fechaVenta='" + fecha + "' ORDER BY idCarga DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -141,7 +141,7 @@ public class CargaBD {
         String[] titulos = {"ID","FECHA VENTA","ORIGEN","DESTINO","DNI","DESTINATARIO","DESCRIPCION","ESTADO","CORRELATIVO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idCarga,fechaVenta,origen,destino,dniDestinatario,destinatario,descripcion,estado,correlativo FROM carga WHERE fechaVenta='" + fecha + "' OR estado='" + estado + "' ";
+        sql = "SELECT idCarga,fechaVenta,origen,destino,dniDestinatario,destinatario,descripcion,estado,correlativo FROM carga WHERE fechaVenta='" + fecha + "' OR estado='" + estado + "' ORDER BY idCarga DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -215,7 +215,7 @@ public class CargaBD {
             }
             return registro;
         } catch (Exception ex) {
-            JOptionPane op = new JOptionPane("Error al reportar carga");
+            JOptionPane op = new JOptionPane("Error al buscar id carga");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);
             return null;
         }

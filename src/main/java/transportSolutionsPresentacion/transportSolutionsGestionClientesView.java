@@ -9,7 +9,7 @@ import transportSolutionsLogica.ClienteRucBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsGestionClientesView extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsGestionClientesView() {
@@ -22,7 +22,7 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
         reporteClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
         reporteClientes.getColumnModel().getColumn(3).setPreferredWidth(200);
     }
-    
+
     public void espaciadoClienteRuc() {
         reporteClientes.getColumnModel().getColumn(0).setPreferredWidth(5);
         reporteClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -30,6 +30,15 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
         reporteClientes.getColumnModel().getColumn(4).setPreferredWidth(200);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteClientes.getModel();
+        int filas = reporteClientes.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,14 +50,15 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
         reporteClientes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btnMostrarClientesRUC = new javax.swing.JButton();
-        txtBuscarRuc = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtBuscarDni = new javax.swing.JTextField();
         btnMostrarClientes = new javax.swing.JButton();
         txtEliminar = new javax.swing.JTextField();
         btnEditarCliente = new javax.swing.JButton();
         btnDescargar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscarRuc = new javax.swing.JTextField();
+        txtBuscarDni = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -123,33 +133,11 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
             }
         });
 
-        txtBuscarRuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarRucActionPerformed(evt);
-            }
-        });
-        txtBuscarRuc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarRucKeyReleased(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Buscar cliente RUC");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Buscar cliente DNI");
-
-        txtBuscarDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarDniActionPerformed(evt);
-            }
-        });
-        txtBuscarDni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarDniKeyReleased(evt);
-            }
-        });
 
         btnMostrarClientes.setBackground(new java.awt.Color(204, 204, 255));
         btnMostrarClientes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -190,29 +178,35 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtBuscarRuc, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminarClientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMostrarClientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMostrarClientesRUC, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditarClienteRuc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditarCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDescargar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEliminar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEliminarClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtBuscarDni)
-                            .addComponent(txtBuscarRuc)
-                            .addComponent(btnMostrarClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMostrarClientesRUC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(btnEditarClienteRuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 4, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtBuscarDni))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(panelGestionClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -223,13 +217,13 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
                     .addComponent(panelGestionClientes)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEliminarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditarClienteRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMostrarClientesRUC, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnMostrarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,13 +231,15 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDescargar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
         );
@@ -257,7 +253,7 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnMostrarClientesRUCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarClientesRUCActionPerformed
-        
+
         ClienteRucBD crbd = new ClienteRucBD();
         DefaultTableModel tabla_temporal;
         tabla_temporal = crbd.reportarClienteRuc();
@@ -275,58 +271,52 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
 
     private void btnEliminarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClientesActionPerformed
 
-        if (txtEliminar.getText().length() > 8) {
+        if (txtEliminar.getText().length() > 0) {
+            if (txtEliminar.getText().length() > 8) {
 
-            String ruc = txtEliminar.getText();
-            ClienteRucBD crbd = new ClienteRucBD();
-            DefaultTableModel dato = crbd.buscarClienteRuc(ruc);
+                String ruc = txtEliminar.getText();
+                ClienteRucBD crbd = new ClienteRucBD();
+                String dato = crbd.obtenerIdClienteRuc(ruc);
 
-            if (dato.getRowCount() > 0) {
+                if (dato.length() > 0) {
 
-                crbd.eliminarClienteRuc(ruc);
-                JOptionPane op = new JOptionPane("Cliente eliminado");
-                op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-                txtEliminar.setText("");
-                
-                DefaultTableModel tabla_temporal;
-                tabla_temporal = crbd.reportarClienteRuc();
-                reporteClientes.setModel(tabla_temporal);
-                espaciadoClienteRuc();
-            }
-        } else if (txtEliminar.getText().length() == 8) {
+                    crbd.eliminarClienteRuc(Integer.parseInt(dato));
+                    JOptionPane op = new JOptionPane("Cliente eliminado");
+                    op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                    txtEliminar.setText("");
+                    limpiarTabla();
+                    
+                } else {
+                    txtEliminar.setText("");
+                    limpiarTabla();
+                }
+            } else if (txtEliminar.getText().length() == 8) {
 
-            String dni = txtEliminar.getText();
-            ClienteNaturalBD cnbd = new ClienteNaturalBD();
-            DefaultTableModel dat = cnbd.buscarClienteNatural(dni);
+                String dni = txtEliminar.getText();
+                ClienteNaturalBD cnbd = new ClienteNaturalBD();
+                String dat = cnbd.obtenerIdClienteNatural(dni);
 
-            if (dat.getRowCount() > 0) {
-                
-                cnbd.eliminarClienteNatural(dni);
-                JOptionPane op = new JOptionPane("Cliente eliminado");
-                op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-                txtEliminar.setText("");
-                
-                DefaultTableModel tabla_temporal;
-                tabla_temporal = cnbd.reportarClienteNatural();
-                reporteClientes.setModel(tabla_temporal);
-                espaciadoClienteNaturtal();
+                if (dat.length() > 0) {
+
+                    cnbd.eliminarClienteNatural(Integer.parseInt(dat));
+                    JOptionPane op = new JOptionPane("Cliente eliminado");
+                    op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+                    txtEliminar.setText("");
+                    limpiarTabla();
+
+                } else {
+                    txtEliminar.setText("");
+                    limpiarTabla();
+                }
             } else {
-                JOptionPane op = new JOptionPane("Error");
+                JOptionPane op = new JOptionPane("Debe ingresar un DNI o RUC valido");
                 op.setMessageType(JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane op = new JOptionPane("Error");
+            JOptionPane op = new JOptionPane("Debe ingresar un DNI o RUC");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarClientesActionPerformed
-
-    private void txtBuscarRucKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarRucKeyReleased
-
-    }//GEN-LAST:event_txtBuscarRucKeyReleased
-
-    private void txtBuscarDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarDniKeyReleased
-
-    }//GEN-LAST:event_txtBuscarDniKeyReleased
 
     private void btnMostrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarClientesActionPerformed
 
@@ -347,46 +337,6 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
         mcr.setVisible(true);
     }//GEN-LAST:event_btnEditarClienteRucActionPerformed
 
-    private void txtBuscarRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarRucActionPerformed
-
-        if (txtBuscarRuc.getText().length() > 0) {
-
-            String ruc = txtBuscarRuc.getText();
-            ClienteRucBD crbd = new ClienteRucBD();
-
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = crbd.buscarClienteRuc(ruc);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteClientes.setModel(tabla_temporal);
-                espaciadoClienteRuc();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar RUC");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_txtBuscarRucActionPerformed
-
-    private void txtBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarDniActionPerformed
-
-        if (txtBuscarDni.getText().length() > 0) {
-
-            String dni = txtBuscarDni.getText();
-            ClienteNaturalBD cnbd = new ClienteNaturalBD();
-
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = cnbd.buscarClienteNatural(dni);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteClientes.setModel(tabla_temporal);
-                espaciadoClienteNaturtal();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar DNI");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_txtBuscarDniActionPerformed
-
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEliminarActionPerformed
@@ -396,7 +346,7 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
     }//GEN-LAST:event_txtEliminarKeyReleased
 
     private void btnEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarClienteActionPerformed
-        
+
         transportSolutionsModificarClienteView mc = new transportSolutionsModificarClienteView();
         panelGestionClientes.add(mc);
         Dimension desktopSize = panelGestionClientes.getSize();
@@ -406,7 +356,7 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
     }//GEN-LAST:event_btnEditarClienteActionPerformed
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteClientes);
@@ -414,8 +364,50 @@ public class transportSolutionsGestionClientesView extends javax.swing.JInternal
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (txtBuscarDni.getText().length() > 0 || txtBuscarRuc.getText().length() > 0) {
+
+            if (txtBuscarDni.getText().length() > 0) {
+
+                String dni = txtBuscarDni.getText();
+                ClienteNaturalBD cnbd = new ClienteNaturalBD();
+
+                DefaultTableModel tabla_temporal;
+                tabla_temporal = cnbd.buscarClienteNatural(dni);
+
+                if (tabla_temporal.getRowCount() > 0) {
+                    reporteClientes.setModel(tabla_temporal);
+                    espaciadoClienteNaturtal();
+                    txtBuscarDni.setText("");
+                } else {
+                    limpiarTabla();
+                }
+            } else if (txtBuscarRuc.getText().length() > 0) {
+
+                String ruc = txtBuscarRuc.getText();
+                ClienteRucBD crbd = new ClienteRucBD();
+
+                DefaultTableModel tabla_temporal;
+                tabla_temporal = crbd.buscarClienteRuc(ruc);
+
+                if (tabla_temporal.getRowCount() > 0) {
+                    reporteClientes.setModel(tabla_temporal);
+                    espaciadoClienteRuc();
+                    txtBuscarRuc.setText("");
+                } else {
+                    limpiarTabla();
+                }
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar DNI o RUC para buscar cliente");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDescargar;
     private javax.swing.JButton btnEditarCliente;
     private javax.swing.JButton btnEditarClienteRuc;

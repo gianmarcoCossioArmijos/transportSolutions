@@ -25,6 +25,15 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
         reporteChoferes.getColumnModel().getColumn(4).setPreferredWidth(200);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteChoferes.getModel();
+        int filas = reporteChoferes.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,6 +50,7 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         btnDescargar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -105,7 +115,7 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -164,6 +174,14 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,9 +197,10 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
                     .addComponent(btnEliminarChofer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEliminar)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
-                            .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,8 +228,10 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarChofer, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDescargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -292,22 +313,6 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
 
     private void txtBuscarChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarChoferActionPerformed
 
-        if (txtBuscarChofer.getText().length() > 0) {
-
-            ChoferBD cbd = new ChoferBD();
-
-            String dni = txtBuscarChofer.getText();
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = cbd.buscarChofer(dni);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteChoferes.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar dni");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarChoferActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -336,7 +341,30 @@ public class transportSolutionsGestionChoferView extends javax.swing.JInternalFr
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        
+        if (txtBuscarChofer.getText().length() > 0) {
+
+            ChoferBD cbd = new ChoferBD();
+
+            String dni = txtBuscarChofer.getText();
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = cbd.buscarChofer(dni);
+
+            if (tabla_temporal.getRowCount() > 0) {
+                reporteChoferes.setModel(tabla_temporal);
+                espaciadoTabla();
+            } else {
+                limpiarTabla();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar dni");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDescargar;
     public javax.swing.JButton btnEditarChofer;
     public javax.swing.JButton btnEliminarChofer;

@@ -206,7 +206,7 @@ public class transportSolutionsNuevoInventario extends javax.swing.JInternalFram
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -232,7 +232,7 @@ public class transportSolutionsNuevoInventario extends javax.swing.JInternalFram
                                     .addComponent(txtMarca))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addGap(0, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
@@ -251,12 +251,12 @@ public class transportSolutionsNuevoInventario extends javax.swing.JInternalFram
                         .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(107, 107, 107)
                         .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtCodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,12 +282,12 @@ public class transportSolutionsNuevoInventario extends javax.swing.JInternalFram
                     .addComponent(jLabel8)
                     .addComponent(txtComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar)
                     .addComponent(btnCerrar)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -306,7 +306,7 @@ public class transportSolutionsNuevoInventario extends javax.swing.JInternalFram
                     if (txtMarca.getText().length() > 0) {
                         if (txtPrecio.getText().length() > 0) {
                             if (dcFechaCompra.getDate().toString().length() > 0) {
-                                if (cmbProveedor.getSelectedItem().toString().length() > 0) {
+                                if (!"SELECCIONAR".equals(cmbProveedor.getSelectedItem().toString())) {
                                     if (txtComprobante.getText().length() > 0) {
 
                                         Inventario i = new Inventario();

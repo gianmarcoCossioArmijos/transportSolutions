@@ -17,17 +17,16 @@ import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame {
 
+    public int caja;
     public int id;
-    public int idSesion;
     public String estado;
     public double monto;
     public String fecha;
     public String turno;
-    public static int idAperturaCaja;
+    public static int idSesion;
     public static int idCaja;
     public static int idTurno;
-    public double monto_apertura;
-    public double monto_cierre;
+    public static double monto_apertura;
     List<Caja> lista_caja;
     List<Turno> lista_turno;
     Reporte rtv;
@@ -89,18 +88,6 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         }
     }
 
-    private void formatoTablaApertura() {
-
-        reporteCierreCaja.getColumnModel().getColumn(0).setPreferredWidth(20);
-        reporteCierreCaja.getColumnModel().getColumn(1).setPreferredWidth(120);
-        reporteCierreCaja.getColumnModel().getColumn(3).setPreferredWidth(20);
-        reporteCierreCaja.getColumnModel().getColumn(6).setPreferredWidth(300);
-    }
-
-    private void formatoTablaCierre() {
-
-        reporteCierreCaja.getColumnModel().getColumn(6).setPreferredWidth(200);
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,12 +137,15 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
 
             },
             new String [] {
-                "FECHA", "CAJA", "TURNO", "USUARIO", "CAJA CHICA APERTURA", "CAJA CHICA CIERRE", "TOTAL"
+                "FECHA", "CAJA", "TURNO", "USUARIO", "MONTO APERTURA", "MONTO CIERRE", "TOTAL"
             }
         ));
         reporteCierreCaja.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reporteCierreCajaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                reporteCierreCajaMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(reporteCierreCaja);
@@ -170,7 +160,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -278,7 +268,7 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                 .addComponent(btnMostrarSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUsarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -288,16 +278,17 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
 
     private void btnAperturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAperturarActionPerformed
 
-        if (cmbCaja.getSelectedItem().toString().length() > 0) {
-            if (cmbTurno.getSelectedItem().toString().length() > 0) {
-                if (txtMonto.getText().length() > 0) {
+        if (!"SELECCIONAR".equals(cmbCaja.getSelectedItem().toString())) {
+            if (!"SELECCIONAR".equals(cmbTurno.getSelectedItem().toString())) {
+                if (!"SELECCIONAR".equals(txtMonto.getText())) {
 
                     EstadoCajaBD ecbd = new EstadoCajaBD();
                     EstadoCaja ec = new EstadoCaja();
 
                     ec.setEstado("APERTURADO");
+                    ec.setFecha(fecha);
                     double monto = Double.parseDouble(txtMonto.getText());
-                    ec.setMontoCajaChica(monto);
+                    ec.setMontoApertura(monto);
 
                     UsuarioBD ubd = new UsuarioBD();
                     String dni = ubd.buscarUsuarioDni(transportSolutionsLogin.dni_publico);
@@ -315,19 +306,8 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                     monto_apertura = monto;
                     idCaja = Integer.parseInt(id_caja);
                     idTurno = Integer.parseInt(id_turno);
-                    idAperturaCaja = idAperutra;
+                    idSesion = idAperutra;
 
-                    DefaultTableModel tabla_temporal;
-                    tabla_temporal = ecbd.reportarAperturaCaja(fecha, idAperutra);
-                    reporteCierreCaja.setModel(tabla_temporal);
-
-                    formatoTablaApertura();
-
-                    try {
-                        rtv = new Reporte();
-                        rtv.exportarExcel(reporteCierreCaja);
-                    } catch (IOException e) {
-                    }
                 } else {
                     JOptionPane op = new JOptionPane("Debe ingresar el monto de caja chica para aperturar");
                     op.setMessageType(JOptionPane.ERROR_MESSAGE);
@@ -336,7 +316,6 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
                 JOptionPane op = new JOptionPane("Debe seleccionar un turno para aperturar");
                 op.setMessageType(JOptionPane.ERROR_MESSAGE);
             }
-        } else {
             JOptionPane op = new JOptionPane("Debe seleccionar una caja para aperturar");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
@@ -350,30 +329,44 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
 
         if (txtMonto.getText().length() > 0) {
+            if (idCaja > 0) {
+                if (idTurno > 0) {
 
-            EstadoCaja ec = new EstadoCaja();
-            EstadoCajaBD ecbd = new EstadoCajaBD();
+                    EstadoCaja ec = new EstadoCaja();
+                    EstadoCajaBD ecbd = new EstadoCajaBD();
 
-            ec.setEstado("CERRADO");
-            ec.setIdCaja(idCaja);
-            ec.setIdTurno(idTurno);
+                    ec.setEstado("CERRADO");
+                    ec.setFecha(fecha);
+                    ec.setIdCaja(idCaja);
+                    ec.setIdTurno(idTurno);
+                    ec.setMontoApertura(monto_apertura);
+                    double monto_cierre = Double.parseDouble(txtMonto.getText());
+                    ec.setMontoCierre(monto_cierre);
 
-            UsuarioBD ubd = new UsuarioBD();
-            String idUsuario = ubd.buscarUsuarioDni(transportSolutionsLogin.dni_publico);
-            ec.setIdUsuario(Integer.parseInt(idUsuario));
+                    UsuarioBD ubd = new UsuarioBD();
+                    String idUsuario = ubd.buscarUsuarioDni(transportSolutionsLogin.dni_publico);
+                    ec.setIdUsuario(Integer.parseInt(idUsuario));
 
-            monto_cierre = Double.parseDouble(txtMonto.getText());
-            ec.setMontoCajaChica(monto_cierre);
-            ecbd.registrarCierreCaja(ec);
+                    ecbd.registrarCierreCaja(ec, idSesion);
 
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = ecbd.reportarCierreCaja(fecha, monto_apertura, monto_cierre, idCaja);
-            reporteCierreCaja.setModel(tabla_temporal);
-
-            try {
-                rtv = new Reporte();
-                rtv.exportarExcel(reporteCierreCaja);
-            } catch (IOException e) {
+//                    DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCierreCaja.getModel();
+//                    tabla_temporal = ecbd.reportarCierreCaja(idCaja, fecha, monto_apertura, monto_cierre);
+//                    reporteCierreCaja.setModel(tabla_temporal);
+//
+//                    try {
+//                        rtv = new Reporte();
+//                        rtv.exportarExcel(reporteCierreCaja);
+//                    } catch (IOException e) {
+//                        JOptionPane op = new JOptionPane("Error al exportar excel");
+//                        op.setMessageType(JOptionPane.ERROR_MESSAGE);
+//                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Es necesario ID de turno");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane op = new JOptionPane("Es necesario ID de caja");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane op = new JOptionPane("Debe ingresar el monto de caja chica para cerrar");
@@ -382,48 +375,64 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void reporteCierreCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteCierreCajaMouseClicked
-
+        
+        DefaultTableModel ventas_tabla = (DefaultTableModel) reporteCierreCaja.getModel();
         int filaSeleccionada = reporteCierreCaja.getSelectedRow();
-        idSesion = Integer.parseInt(reporteCierreCaja.getValueAt(filaSeleccionada, 0).toString());
-        estado = reporteCierreCaja.getValueAt(filaSeleccionada, 1).toString();
-        monto = Double.parseDouble(reporteCierreCaja.getValueAt(filaSeleccionada, 2).toString());
-        id = Integer.parseInt(reporteCierreCaja.getValueAt(filaSeleccionada, 3).toString());
-        turno = reporteCierreCaja.getValueAt(filaSeleccionada, 5).toString();
+        id = Integer.parseInt(ventas_tabla.getValueAt(filaSeleccionada, 0).toString());
+        fecha = ventas_tabla.getValueAt(filaSeleccionada, 1).toString();
+        estado = ventas_tabla.getValueAt(filaSeleccionada, 2).toString();
+        monto = Double.parseDouble(ventas_tabla.getValueAt(filaSeleccionada, 3).toString());
+        caja = Integer.parseInt(ventas_tabla.getValueAt(filaSeleccionada, 5).toString());
+        turno = ventas_tabla.getValueAt(filaSeleccionada, 7).toString();
     }//GEN-LAST:event_reporteCierreCajaMouseClicked
 
     private void btnMostrarSesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarSesionesActionPerformed
 
         EstadoCajaBD ecbd = new EstadoCajaBD();
-        DefaultTableModel tabla_temporal;
-        tabla_temporal = ecbd.reportarSesionCaja();
+        DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCierreCaja.getModel();
+        tabla_temporal = ecbd.reportarSesionCaja(fecha);
         reporteCierreCaja.setModel(tabla_temporal);
-        formatoTablaApertura();
     }//GEN-LAST:event_btnMostrarSesionesActionPerformed
 
     private void btnUsarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsarSesionActionPerformed
 
+        Calendar calendario = Calendar.getInstance();
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+        int mes = calendario.get(Calendar.MONTH) + 1;
+        int anio = calendario.get(Calendar.YEAR);
+        String f = anio + "-" + mes + "-" + dia;
+        String fecha_temporal = f;
+
         if (id > 0) {
-            if (estado.equals("APERTURADO")) {
+            if (fecha.equals(fecha_temporal)) {
+                if (estado.equals("APERTURADO")) {
 
-                CajaBD cbd = new CajaBD();
-                DefaultTableModel tabla_temporal;
-                tabla_temporal = cbd.buscarCaja(id);
+                    CajaBD cbd = new CajaBD();
+                    DefaultTableModel tabla_temporal;
+                    tabla_temporal = cbd.buscarCaja(caja);
 
-                if (tabla_temporal.getRowCount() > 0) {
+                    if (tabla_temporal.getRowCount() > 0) {
 
-                    idCaja = id;
-                    monto_apertura = monto;
-                    idAperturaCaja = idSesion;
+                        idSesion = id;
+                        monto_apertura = monto;
+                        idCaja = caja;
 
-                    TurnoBD t = new TurnoBD();
-                    String idt = t.buscarIdTurno(turno);
-                    idTurno = Integer.parseInt(idt);
+                        TurnoBD t = new TurnoBD();
+                        String idt = t.buscarIdTurno(turno);
+                        idTurno = Integer.parseInt(idt);
 
-                    JOptionPane op = new JOptionPane("Caja aperturada");
+                        JOptionPane op = new JOptionPane("Caja lista");
+                        op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane op = new JOptionPane("Sesion no encontrada");
+                        op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar una sesion aperturada");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar una sesion aperturada");
+                JOptionPane op = new JOptionPane("Debe seleccionar una sesion con fecha actual");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
@@ -435,6 +444,10 @@ public class transportSolutionsSesionCajaView extends javax.swing.JInternalFrame
     private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoActionPerformed
+
+    private void reporteCierreCajaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteCierreCajaMousePressed
+
+    }//GEN-LAST:event_reporteCierreCajaMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAperturar;

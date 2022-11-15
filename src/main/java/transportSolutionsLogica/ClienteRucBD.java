@@ -66,7 +66,7 @@ public class ClienteRucBD {
         String[] titulos = {"ID", "RAZON SOCIAL", "RUC", "DIRECCION", "CORREO", "TELEFONO"};
         String[] registros = new String[6];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idClienteRuc,razonSocial,ruc,direccion,correo,telefono FROM clienteRuc";
+        sql = "SELECT idClienteRuc,razonSocial,ruc,direccion,correo,telefono FROM clienteRuc ORDER BY razonSocial ASC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -91,9 +91,9 @@ public class ClienteRucBD {
         }
     }
 
-    public boolean eliminarClienteRuc(String ruc) {
+    public boolean eliminarClienteRuc(int id) {
 
-        sql = "DELETE FROM clienteRuc WHERE ruc='" + ruc + "'";
+        sql = "DELETE FROM clienteRuc WHERE idClienteRuc='" + id + "'";
         try {
             Statement st = cn.createStatement();
             st.executeUpdate(sql);
@@ -140,15 +140,15 @@ public class ClienteRucBD {
 
     public String reportarClienteRuc(String ruc) {
 
-        String registro = null;
+        String id = null;
         sql = "SELECT idClienteRuc FROM clienteRuc WHERE ruc='" + ruc + "'";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                registro = rs.getString("idClienteRuc");
+                id = rs.getString("idClienteRuc");
             }
-            return registro;
+            return id;
         } catch (Exception e) {
             JOptionPane op = new JOptionPane("Problemas al buscar cliente");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);

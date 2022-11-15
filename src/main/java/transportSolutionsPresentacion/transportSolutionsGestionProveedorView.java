@@ -9,7 +9,7 @@ import transportSolutionsLogica.ProveedorBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsGestionProveedorView extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsGestionProveedorView() {
@@ -19,6 +19,16 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
 
     void espaciadoTabla() {
         reporteProveedores.getColumnModel().getColumn(0).setPreferredWidth(2);
+    }
+
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteProveedores.getModel();
+        int filas = reporteProveedores.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +47,7 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         btnDescargar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -99,7 +110,7 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -158,6 +169,14 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,7 +192,8 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
                     .addComponent(txtEliminar)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -200,8 +220,10 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDescargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -267,7 +289,7 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
     private void reporteProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteProveedoresMouseClicked
 
         int filaSeleccionada = reporteProveedores.getSelectedRow();
-        
+
         txtEliminar.setText(reporteProveedores.getValueAt(filaSeleccionada, 1).toString());
     }//GEN-LAST:event_reporteProveedoresMouseClicked
 
@@ -283,22 +305,6 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
 
     private void txtBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarProveedorActionPerformed
 
-        if (txtBuscarProveedor.getText().length() > 0) {
-
-            ProveedorBD pbd = new ProveedorBD();
-
-            String buscar = txtBuscarProveedor.getText();
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = pbd.buscarProveedor(buscar);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteProveedores.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar ruc");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarProveedorActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -319,7 +325,7 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
     }//GEN-LAST:event_txtBuscarProveedorKeyTyped
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteProveedores);
@@ -327,7 +333,32 @@ public class transportSolutionsGestionProveedorView extends javax.swing.JInterna
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (txtBuscarProveedor.getText().length() > 0) {
+
+            ProveedorBD pbd = new ProveedorBD();
+
+            String buscar = txtBuscarProveedor.getText();
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = pbd.buscarProveedor(buscar);
+
+            if (tabla_temporal.getRowCount() > 0) {
+
+                reporteProveedores.setModel(tabla_temporal);
+                espaciadoTabla();
+
+            } else {
+                limpiarTabla();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar ruc");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDescargar;
     public javax.swing.JButton btnEditarProveedor;
     public javax.swing.JButton btnEliminarProveedor;

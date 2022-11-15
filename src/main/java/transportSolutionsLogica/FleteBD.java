@@ -215,7 +215,7 @@ public class FleteBD {
         String[] titulos = {"ID","FECHA VENTA","ORIGEN","DESTINO","DOCUMENTO","CLIENTE","DESCRIPCION","ESTADO","CORRELATIVO"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFlete,fechaVenta,origen,destino,documentoCliente,cliente,descripcion,estado,correlativo FROM flete WHERE estado='" + estado + "' OR fechaVenta='" + fecha + "' ";
+        sql = "SELECT idFlete,fechaVenta,origen,destino,documentoCliente,cliente,descripcion,estado,correlativo FROM flete WHERE estado='" + estado + "' OR fechaVenta='" + fecha + "' ORDER BY idFlete DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);

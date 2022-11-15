@@ -7,14 +7,14 @@ import transportSolutionsLogica.BoletaBD;
 import transportSolutionsLogica.FacturaBD;
 
 public class transportSolutionsGestionVentasView extends javax.swing.JInternalFrame {
-    
+
     public transportSolutionsGestionVentasView() {
         initComponents();
         txtAnular.setEnabled(false);
     }
-    
+
     void espaciadoTabla() {
-        
+
         reporteVentas.getColumnModel().getColumn(0).setPreferredWidth(20);
         reporteVentas.getColumnModel().getColumn(1).setPreferredWidth(50);
         reporteVentas.getColumnModel().getColumn(2).setPreferredWidth(50);
@@ -24,7 +24,7 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
         reporteVentas.getColumnModel().getColumn(6).setPreferredWidth(150);
         reporteVentas.getColumnModel().getColumn(7).setPreferredWidth(150);
     }
-    
+
     public void limpiarTabla() {
 
         DefaultTableModel temp = (DefaultTableModel) reporteVentas.getModel();
@@ -34,6 +34,7 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
             temp.removeRow(0);
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,6 +50,7 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
         txtAnular = new javax.swing.JTextField();
         cmbEstadoVenta = new javax.swing.JComboBox<>();
         cmbTipoDocumento = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -86,7 +88,9 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
         panelMantenimiento.setLayout(panelMantenimientoLayout);
         panelMantenimientoLayout.setHorizontalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMantenimientoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 883, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,6 +154,14 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,16 +169,22 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbEstadoVenta, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtBuscarVenta, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnMostrarVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                        .addComponent(txtAnular, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(btnAnularVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnAnularVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cmbEstadoVenta, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtBuscarVenta, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnMostrarVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                                        .addComponent(txtAnular, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -189,6 +207,8 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
                         .addComponent(cmbEstadoVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addGap(15, 15, 15))
@@ -201,37 +221,42 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
+
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMostrarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarVentasActionPerformed
-        
-        if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
-            
-            if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
-                
-                BoletaBD vbd = new BoletaBD();
-                DefaultTableModel tabla_temporal_boleta;
-                tabla_temporal_boleta = vbd.mostrarBoleta(cmbEstadoVenta.getSelectedItem().toString());
-                
-                reporteVentas.setModel(tabla_temporal_boleta);
-                espaciadoTabla();
+
+        if (cmbTipoDocumento.getSelectedItem().toString().length() > 0) {
+            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+
+                if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
+
+                    BoletaBD vbd = new BoletaBD();
+                    DefaultTableModel tabla_temporal_boleta;
+                    tabla_temporal_boleta = vbd.mostrarBoleta(cmbEstadoVenta.getSelectedItem().toString());
+
+                    reporteVentas.setModel(tabla_temporal_boleta);
+                    espaciadoTabla();
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar estado de boleta");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
+            } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
+                if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
+                    FacturaBD fbd = new FacturaBD();
+                    DefaultTableModel tabla_temporal_factura;
+                    tabla_temporal_factura = fbd.mostrarFactura(cmbEstadoVenta.getSelectedItem().toString());
+
+                    reporteVentas.setModel(tabla_temporal_factura);
+                    espaciadoTabla();
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar estado de factura");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
             } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar estado de boleta");
-                op.setMessageType(JOptionPane.WARNING_MESSAGE);
-            }
-        } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
-            
-            if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
-                FacturaBD fbd = new FacturaBD();
-                DefaultTableModel tabla_temporal_factura;
-                tabla_temporal_factura = fbd.mostrarFactura(cmbEstadoVenta.getSelectedItem().toString());
-                
-                reporteVentas.setModel(tabla_temporal_factura);
-                espaciadoTabla();
-            } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar estado de factura");
+                JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
@@ -241,26 +266,38 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
     }//GEN-LAST:event_btnMostrarVentasActionPerformed
 
     private void btnAnularVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularVentaActionPerformed
-        
+
         if (txtAnular.getText().length() > 0) {
-            
-            BoletaBD vbd = new BoletaBD();
-            String id = txtAnular.getText();
-            int fila = reporteVentas.getSelectedRow();
-            
-            String registro = vbd.buscarBoleta(Integer.parseInt(id));
-            
-            if (registro != null) {
-                
-                vbd.anularBoleta(Integer.parseInt(id));
-                limpiarTabla();
-                txtAnular.setText("");
-            } else {
-                
+
+            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+
+                BoletaBD vbd = new BoletaBD();
+                String id = txtAnular.getText();
+                String registroBoleta = vbd.buscarBoleta(Integer.parseInt(id));
+
+                if (registroBoleta != null) {
+
+                    vbd.anularBoleta(Integer.parseInt(id));
+                    limpiarTabla();
+                    txtAnular.setText("");
+                } else {
+                    registroBoleta = "null";
+                }
+
+            } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
                 FacturaBD fbd = new FacturaBD();
-                fbd.anularFactura(Integer.parseInt(id));
-                limpiarTabla();
-                txtAnular.setText("");
+                String id = txtAnular.getText();
+                String registroFactura = fbd.buscarIdFactura(Integer.parseInt(id));
+
+                if (registroFactura != null) {
+
+                    fbd.anularFactura(Integer.parseInt(id));
+                    limpiarTabla();
+                    txtAnular.setText("");
+                } else {
+                    registroFactura = "null";
+                }
             }
         } else {
             JOptionPane op = new JOptionPane("Debe ingresar un correlativo");
@@ -273,49 +310,14 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
     }//GEN-LAST:event_txtBuscarVentaKeyReleased
 
     private void reporteVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteVentasMouseClicked
-        
+
         int filaSeleccionada = reporteVentas.getSelectedRow();
-        
+
         txtAnular.setText(reporteVentas.getValueAt(filaSeleccionada, 0).toString());
     }//GEN-LAST:event_reporteVentasMouseClicked
 
     private void txtBuscarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarVentaActionPerformed
-        
-        if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
-            
-            if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
-                
-                BoletaBD vbd = new BoletaBD();
-                DefaultTableModel tabla_temporal_boleta;
-                tabla_temporal_boleta = vbd.buscarBoleta(txtBuscarVenta.getText(), cmbEstadoVenta.getSelectedItem().toString());
-                
-                if (tabla_temporal_boleta.getRowCount() > 0) {
-                    reporteVentas.setModel(tabla_temporal_boleta);
-                    espaciadoTabla();
-                }
-            } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar estado de boleta");
-                op.setMessageType(JOptionPane.WARNING_MESSAGE);
-            }
-        } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
-            
-            if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
-                FacturaBD fbd = new FacturaBD();
-                DefaultTableModel tabla_temporal_factura;
-                tabla_temporal_factura = fbd.buscarFactura(txtBuscarVenta.getText(), cmbEstadoVenta.getSelectedItem().toString());
-                
-                if (tabla_temporal_factura.getRowCount() > 0) {
-                    reporteVentas.setModel(tabla_temporal_factura);
-                    espaciadoTabla();
-                }
-            } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar estado de factura");
-                op.setMessageType(JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
+
     }//GEN-LAST:event_txtBuscarVentaActionPerformed
 
     private void txtAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnularActionPerformed
@@ -327,9 +329,9 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
     }//GEN-LAST:event_txtAnularKeyReleased
 
     private void txtBuscarVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarVentaKeyTyped
-        
+
         char caracter = evt.getKeyChar();
-        
+
         if (Character.isLetter(caracter) && caracter != KeyEvent.VK_SPACE) {
             evt.consume();
         }
@@ -339,8 +341,57 @@ public class transportSolutionsGestionVentasView extends javax.swing.JInternalFr
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTipoDocumentoActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (cmbTipoDocumento.getSelectedItem().toString().length() > 0) {
+            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+
+                if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
+
+                    BoletaBD vbd = new BoletaBD();
+                    DefaultTableModel tabla_temporal_boleta;
+                    tabla_temporal_boleta = vbd.buscarBoleta(txtBuscarVenta.getText(), cmbEstadoVenta.getSelectedItem().toString());
+
+                    if (tabla_temporal_boleta.getRowCount() > 0) {
+                        reporteVentas.setModel(tabla_temporal_boleta);
+                        espaciadoTabla();
+                    } else {
+                        limpiarTabla();
+                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar estado de boleta");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
+            } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
+                if (cmbEstadoVenta.getSelectedItem().toString().length() > 0) {
+                    FacturaBD fbd = new FacturaBD();
+                    DefaultTableModel tabla_temporal_factura;
+                    tabla_temporal_factura = fbd.buscarFactura(txtBuscarVenta.getText(), cmbEstadoVenta.getSelectedItem().toString());
+
+                    if (tabla_temporal_factura.getRowCount() > 0) {
+                        reporteVentas.setModel(tabla_temporal_factura);
+                        espaciadoTabla();
+                    } else {
+                        limpiarTabla();
+                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar estado de factura");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAnularVenta;
+    private javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnMostrarVentas;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEstadoVenta;

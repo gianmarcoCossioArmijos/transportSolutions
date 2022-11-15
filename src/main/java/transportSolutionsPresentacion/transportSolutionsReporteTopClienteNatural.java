@@ -1,12 +1,13 @@
 package transportSolutionsPresentacion;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.BoletaBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsReporteTopClienteNatural extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsReporteTopClienteNatural() {
@@ -16,7 +17,7 @@ public class transportSolutionsReporteTopClienteNatural extends javax.swing.JInt
     }
 
     private void espaciadoTabla() {
-        
+
         reporteTopClientes.getColumnModel().getColumn(0).setPreferredWidth(20);
         reporteTopClientes.getColumnModel().getColumn(1).setPreferredWidth(170);
         reporteTopClientes.getColumnModel().getColumn(3).setPreferredWidth(170);
@@ -148,17 +149,19 @@ public class transportSolutionsReporteTopClienteNatural extends javax.swing.JInt
     }//GEN-LAST:event_reporteTopClientesMouseClicked
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        
+
         reportar();
         espaciadoTabla();
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteTopClientes);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 

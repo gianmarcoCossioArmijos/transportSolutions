@@ -67,7 +67,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="dcFecha" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnDescargar1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnDescargar1" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnDescargar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>

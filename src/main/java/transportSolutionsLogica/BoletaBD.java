@@ -33,7 +33,6 @@ public class BoletaBD {
             
             pst.executeUpdate();
             ResultSet resultado = (ResultSet) pst.getGeneratedKeys();
-            pst.close();
             if (resultado.next()) {
                 idventa = resultado.getInt(1);
             }
@@ -76,7 +75,7 @@ public class BoletaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idBoleta,total,fecha,correlativo,estado,tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja";
+        sql = "SELECT idBoleta,total,fecha,correlativo,estado,b.tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -86,7 +85,7 @@ public class BoletaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("tipo");
+                registros[5] = rs.getString("b.tipo");
                 registros[6] = rs.getString("cn.nombres");
                 registros[7] = rs.getString("u.nombres");
                 registros[8] = rs.getString("c.descripcion");
@@ -110,7 +109,7 @@ public class BoletaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idBoleta,total,fecha,correlativo,estado,tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.idClienteNatural='" + id + "'";
+        sql = "SELECT idBoleta,total,fecha,correlativo,estado,b.tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.idClienteNatural='" + id + "' ORDER BY idBoleta DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -120,7 +119,7 @@ public class BoletaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("tipo");
+                registros[5] = rs.getString("b.tipo");
                 registros[6] = rs.getString("cn.nombres");
                 registros[7] = rs.getString("u.nombres");
                 registros[8] = rs.getString("c.descripcion");
@@ -144,7 +143,7 @@ public class BoletaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idBoleta,total,fecha,correlativo,estado,tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.fecha='" + dia +"'";
+        sql = "SELECT idBoleta,total,fecha,correlativo,estado,b.tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.fecha='" + dia +"' ORDER BY idBoleta DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -154,7 +153,7 @@ public class BoletaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("tipo");
+                registros[5] = rs.getString("b.tipo");
                 registros[6] = rs.getString("cn.nombres");
                 registros[7] = rs.getString("u.nombres");
                 registros[8] = rs.getString("c.descripcion");
@@ -176,9 +175,9 @@ public class BoletaBD {
 
         DefaultTableModel modelo;
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
-        String[] registros = new String[8];
+        String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idBoleta,total,fecha,correlativo,estado,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' ";
+        sql = "SELECT idBoleta,total,fecha,correlativo,estado,b.tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.fecha BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "' ORDER BY idBoleta DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -188,9 +187,10 @@ public class BoletaBD {
                 registros[2] = rs.getString("fecha");
                 registros[3] = rs.getString("correlativo");
                 registros[4] = rs.getString("estado");
-                registros[5] = rs.getString("cn.nombres");
-                registros[6] = rs.getString("u.nombres");
-                registros[7] = rs.getString("c.descripcion");
+                registros[5] = rs.getString("b.tipo");
+                registros[6] = rs.getString("cn.nombres");
+                registros[7] = rs.getString("u.nombres");
+                registros[8] = rs.getString("c.descripcion");
 
                 modelo.addRow(registros);
             }
@@ -211,7 +211,7 @@ public class BoletaBD {
         String[] titulos = {"ID","TOTAL","FECHA","CORRELATIVO","ESTADO","TIPO","CLIENTE","VENDEDOR","CAJA"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idBoleta,total,fecha,correlativo,estado,tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.idUsuario='" + id +"'";
+        sql = "SELECT idBoleta,total,fecha,correlativo,estado,tipo,cn.nombres,u.nombres,c.descripcion FROM boleta AS b JOIN clienteNatural AS cn ON b.idClienteNatural = cn.idClienteNatural JOIN usuario AS u ON b.idUsuario = u.idUsuario JOIN caja as c ON b.idCaja=c.idCaja WHERE b.idUsuario='" + id +"' ORDER BY idBoleta DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -403,15 +403,15 @@ public class BoletaBD {
         return modelo;
     }
     
-    public String buscarIdBoleta(String correlativo) {
+    public String buscarIdBoleta(int id) {
 
         String registro = null;
-        sql = "SELECT idBoleta FROM boleta WHERE correlativo='" + correlativo + "' ";
+        sql = "SELECT correlativo FROM boleta WHERE idBoleta='" + id + "' ";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                registro= rs.getString("idBoleta");
+                registro= rs.getString("correlativo");
             }
         return registro;
         } catch (Exception e) {

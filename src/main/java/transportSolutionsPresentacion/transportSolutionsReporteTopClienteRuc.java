@@ -1,6 +1,7 @@
 package transportSolutionsPresentacion;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.FacturaBD;
 import transportSolutionsReporte.Reporte;
@@ -159,6 +160,8 @@ public class transportSolutionsReporteTopClienteRuc extends javax.swing.JInterna
             rtv = new Reporte();
             rtv.exportarExcel(reporteTopClientes);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 

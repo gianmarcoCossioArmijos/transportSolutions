@@ -161,8 +161,8 @@ public class transportSolutionsHistorialCargaEncomiendaView extends javax.swing.
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        if (cmbCargaEncomienda.getSelectedItem().toString().length() > 0) {
-            if (cmbEstado.getSelectedItem().toString().length() > 0) {
+        if (!"SELECCIONAR".equals(cmbCargaEncomienda.getSelectedItem().toString())) {
+            if (!"SELECCIONAR".equals(cmbEstado.getSelectedItem().toString())) {
                 if (dcFecha.getCalendar().toString().length() > 0) {
 
                     if (cmbCargaEncomienda.getSelectedItem().toString().equals("CARGA")) {
@@ -183,7 +183,6 @@ public class transportSolutionsHistorialCargaEncomiendaView extends javax.swing.
                             reporteCargaEncomienda.setModel(tabla_temporal);
                             espaciadoTabla();
                         } else {
-
                             limpiarTabla();
                         }
                     } else if (cmbCargaEncomienda.getSelectedItem().toString().equals("ENCOMIENDA")) {
@@ -204,16 +203,13 @@ public class transportSolutionsHistorialCargaEncomiendaView extends javax.swing.
                             reporteCargaEncomienda.setModel(tabla_temporal);
                             espaciadoTabla();
                         } else {
-
                             limpiarTabla();
                         }
                     }
-
                 } else {
                     JOptionPane op = new JOptionPane("Debe seleccionar fecha");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
                 }
-
             } else {
                 JOptionPane op = new JOptionPane("Debe seleccionar estado");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
@@ -222,7 +218,6 @@ public class transportSolutionsHistorialCargaEncomiendaView extends javax.swing.
             JOptionPane op = new JOptionPane("Debe seleccionar carga o encomienda");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void reporteCargaEncomiendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteCargaEncomiendaMouseClicked

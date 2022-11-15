@@ -18,6 +18,16 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
 
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteCorrelativos.getModel();
+        int filas = reporteCorrelativos.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -33,6 +43,7 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         cmbTipoDocumento = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -84,7 +95,7 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -137,6 +148,14 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
 
         cmbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "BOLETA", "FACTURA" }));
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,7 +170,8 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
                     .addComponent(txtEliminar)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoCorrelativo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbTipoDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbTipoDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -177,7 +197,9 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
                 .addComponent(txtBuscarCorrelativo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -203,25 +225,30 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
 
     private void btnMostrarCorrelativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarCorrelativosActionPerformed
 
-        if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
-            
-            CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
-            DefaultTableModel tabla_temporal_boleta;
-            tabla_temporal_boleta = cbbd.reportarCorrelativoB();
-            
-            if (tabla_temporal_boleta.getRowCount() > 0) {
-                reporteCorrelativos.setModel(tabla_temporal_boleta);
-                espaciadoTabla();
-            }
-        } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
-            
-            CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
-            DefaultTableModel tabla_temporal_factura;
-            tabla_temporal_factura = cfbd.reportarCorrelativoF();
-            
-            if (tabla_temporal_factura.getRowCount() > 0) {
-                reporteCorrelativos.setModel(tabla_temporal_factura);
-                espaciadoTabla();
+        if (cmbTipoDocumento.getSelectedItem().toString().length() > 0) {
+            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+
+                CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
+                DefaultTableModel tabla_temporal_boleta;
+                tabla_temporal_boleta = cbbd.reportarCorrelativoB();
+
+                if (tabla_temporal_boleta.getRowCount() > 0) {
+                    reporteCorrelativos.setModel(tabla_temporal_boleta);
+                    espaciadoTabla();
+                }
+            } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
+                CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
+                DefaultTableModel tabla_temporal_factura;
+                tabla_temporal_factura = cfbd.reportarCorrelativoF();
+
+                if (tabla_temporal_factura.getRowCount() > 0) {
+                    reporteCorrelativos.setModel(tabla_temporal_factura);
+                    espaciadoTabla();
+                }
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
             JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
@@ -248,7 +275,6 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
 
                 JOptionPane op = new JOptionPane("Correlativo eliminado");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
-
             } else {
 
                 DefaultTableModel model;
@@ -266,7 +292,6 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
 
                     JOptionPane op = new JOptionPane("Correlativo eliminado");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
-
                 }
             }
         } else {
@@ -287,34 +312,7 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
     }//GEN-LAST:event_reporteCorrelativosMouseClicked
 
     private void txtBuscarCorrelativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCorrelativoActionPerformed
-        if (txtBuscarCorrelativo.getText().length() > 0) {
-            if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
 
-                DefaultTableModel modelo;
-                int idBoleta = Integer.parseInt(txtBuscarCorrelativo.getText());
-                CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
-                modelo = cbbd.buscarCorrelativoB(idBoleta);
-                reporteCorrelativos.setModel(modelo);
-                txtBuscarCorrelativo.setText("");
-                cmbTipoDocumento.setSelectedIndex(0);
-
-            } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
-
-                DefaultTableModel model;
-                int idFactura = Integer.parseInt(txtBuscarCorrelativo.getText());
-                CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
-                model = cfbd.buscarCorrelativoF(idFactura);
-                reporteCorrelativos.setModel(model);
-                txtBuscarCorrelativo.setText("");
-                cmbTipoDocumento.setSelectedIndex(0);
-            } else {
-                JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
-                op.setMessageType(JOptionPane.WARNING_MESSAGE);
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar id");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarCorrelativoActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -334,7 +332,58 @@ public class transportSolutionsGestionCorrelativosView extends javax.swing.JInte
         }
     }//GEN-LAST:event_txtBuscarCorrelativoKeyTyped
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (txtBuscarCorrelativo.getText().length() > 0) {
+            if (cmbTipoDocumento.getSelectedItem().toString().length() > 0) {
+                if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+
+                    DefaultTableModel modelo;
+                    int idBoleta = Integer.parseInt(txtBuscarCorrelativo.getText());
+                    CorrelativoBoletaBD cbbd = new CorrelativoBoletaBD();
+                    modelo = cbbd.buscarCorrelativoB(idBoleta);
+
+                    if (modelo.getRowCount() > 0) {
+
+                        reporteCorrelativos.setModel(modelo);
+                        txtBuscarCorrelativo.setText("");
+                        cmbTipoDocumento.setSelectedIndex(0);
+
+                    } else {
+                        limpiarTabla();
+                    }
+                } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
+                    DefaultTableModel model;
+                    int idFactura = Integer.parseInt(txtBuscarCorrelativo.getText());
+                    CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
+                    model = cfbd.buscarCorrelativoF(idFactura);
+
+                    if (model.getRowCount() > 0) {
+
+                        reporteCorrelativos.setModel(model);
+                        txtBuscarCorrelativo.setText("");
+                        cmbTipoDocumento.setSelectedIndex(0);
+
+                    } else {
+                        limpiarTabla();
+                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
+                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar tipo de documento");
+                op.setMessageType(JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar id");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnEliminarCorrelativo;
     public javax.swing.JButton btnMostrarCorrelativos;
     public javax.swing.JButton btnNuevoCorrelativo;

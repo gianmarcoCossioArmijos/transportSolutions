@@ -29,26 +29,22 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="txtEliminar" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnEliminarClientes" max="32767" attributes="0"/>
-                          <Component id="txtBuscarDni" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtBuscarRuc" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnMostrarClientes" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnMostrarClientesRUC" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEditarClienteRuc" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnEditarCliente" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnDescargar" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="txtBuscarRuc" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnEliminarClientes" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnMostrarClientes" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnMostrarClientesRUC" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditarClienteRuc" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnEditarCliente" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnDescargar" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnBuscar" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtEliminar" max="32767" attributes="0"/>
+                  <Component id="txtBuscarDni" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
               <Component id="panelGestionClientes" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -61,13 +57,13 @@
                   <Component id="panelGestionClientes" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnEliminarClientes" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtEliminar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnEditarClienteRuc" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnEditarCliente" min="-2" pref="51" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnMostrarClientesRUC" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnMostrarClientes" min="-2" pref="51" max="-2" attributes="0"/>
@@ -75,13 +71,15 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtBuscarRuc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtBuscarDni" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnDescargar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="29" max="32767" attributes="0"/>
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -229,12 +227,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarClientesRUCActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtBuscarRuc">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarRucActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarRucKeyReleased"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -250,12 +242,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar cliente DNI"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtBuscarDni">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscarDniActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarDniKeyReleased"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMostrarClientes">
       <Properties>
@@ -309,6 +295,23 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDescargarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBuscar">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="cc" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/buscar.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBuscarRuc">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtBuscarDni">
     </Component>
   </SubComponents>
 </Form>

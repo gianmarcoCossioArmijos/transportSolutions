@@ -27,7 +27,7 @@ public class DetalleBoletaBD {
             pst.setString(3, db.getTipoCarga());
             pst.setString(4, db.getDescripcion());
             pst.setDouble(5, db.getPrecio());
-            pst.setDouble(6, db.getIdBoleta());
+            pst.setInt(6, db.getIdBoleta());
 
             pst.executeUpdate();
             pst.close();

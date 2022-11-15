@@ -209,7 +209,7 @@ public class transportSolutionsNuevoEgresoView extends javax.swing.JInternalFram
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
@@ -237,7 +237,7 @@ public class transportSolutionsNuevoEgresoView extends javax.swing.JInternalFram
                         .addComponent(txtComprobante)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,13 +266,13 @@ public class transportSolutionsNuevoEgresoView extends javax.swing.JInternalFram
                     .addComponent(jLabel5)
                     .addComponent(txtComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -294,7 +294,7 @@ public class transportSolutionsNuevoEgresoView extends javax.swing.JInternalFram
             if (txtDescripcion.getText().length() > 0) {
                 if (txtMonto.getText().length() > 0) {
                     if (dcFecha.getDate().toString().length() > 0) {
-                        if (cmbResponsable.getSelectedItem().toString().length() > 0) {
+                        if (!"SELECCIONAR".equals(cmbResponsable.getSelectedItem().toString())) {
                             if (txtComprobante.getText().length() > 0) {
 
                                 Egreso e = new Egreso();

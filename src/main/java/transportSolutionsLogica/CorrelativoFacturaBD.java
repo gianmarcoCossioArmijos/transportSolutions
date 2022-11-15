@@ -149,7 +149,7 @@ public class CorrelativoFacturaBD {
     
     public List<CorrelativoFactura> obetenerNumero() {
         List<CorrelativoFactura> lista = new ArrayList<>();
-        sql = "SELECT idFacturaCorrelativo,serie,codigo FROM facturaCorrelativo";
+        sql = "SELECT idFacturaCorrelativo,serie,codigo FROM facturaCorrelativo ORDER BY serie DESC LIMIT 1";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);

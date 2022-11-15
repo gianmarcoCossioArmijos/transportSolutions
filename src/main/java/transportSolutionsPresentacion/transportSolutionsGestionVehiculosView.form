@@ -39,6 +39,7 @@
                   <Component id="btnSalir" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnNuevoVehiculo" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnDescargar" max="32767" attributes="0"/>
+                  <Component id="btnBuscar" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelMantenimiento" max="32767" attributes="0"/>
@@ -69,8 +70,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtBuscarVehiculo" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="btnDescargar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="70" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
@@ -151,7 +154,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="503" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -313,6 +316,19 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDescargarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBuscar">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="ff" red="cc" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/buscar.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

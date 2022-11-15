@@ -90,7 +90,7 @@ public class transportSolutionsFleteView extends javax.swing.JInternalFrame {
 
         btnAsignarFlete.setBackground(new java.awt.Color(204, 204, 255));
         btnAsignarFlete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAsignarFlete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo_vehiculo.png"))); // NOI18N
+        btnAsignarFlete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asignarFlete.png"))); // NOI18N
         btnAsignarFlete.setText("Asignar Flete");
         btnAsignarFlete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +180,7 @@ public class transportSolutionsFleteView extends javax.swing.JInternalFrame {
 
         btnLiberarFlete.setBackground(new java.awt.Color(204, 204, 255));
         btnLiberarFlete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLiberarFlete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_vehiculos.png"))); // NOI18N
+        btnLiberarFlete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/liberar_flete.png"))); // NOI18N
         btnLiberarFlete.setText("Liberar Flete");
         btnLiberarFlete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

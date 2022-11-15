@@ -12,6 +12,15 @@ public class transportSolutionsGestionPuestoLaboralView extends javax.swing.JInt
         txtEliminar.setEnabled(false);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reportePuestoLaboral.getModel();
+        int filas = reportePuestoLaboral.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,13 +208,10 @@ public class transportSolutionsGestionPuestoLaboralView extends javax.swing.JInt
             PuestoLaboralBD plbd = new PuestoLaboralBD();
             plbd.eliminarPuestoTrabajo(id);
 
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = plbd.reportarPuestoTrabajo();
-            reportePuestoLaboral.setModel(tabla_temporal);
-
             JOptionPane op = new JOptionPane("Puesto laboral eliminado");
             op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
             txtEliminar.setText("");
+            limpiarTabla();
         } else {
             JOptionPane op = new JOptionPane("Debe selecionar un puesto laboral");
             op.setMessageType(JOptionPane.INFORMATION_MESSAGE);

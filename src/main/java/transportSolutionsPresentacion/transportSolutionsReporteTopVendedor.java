@@ -2,18 +2,9 @@ package transportSolutionsPresentacion;
 
 import java.io.IOException;
 import java.util.Calendar;
-//import java.util.HashMap;
-//import java.util.Map;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.BoletaBD;
-//import net.sf.jasperreports.engine.JRException;
-//import net.sf.jasperreports.engine.JasperFillManager;
-//import net.sf.jasperreports.engine.JasperPrint;
-//import net.sf.jasperreports.engine.JasperReport;
-//import net.sf.jasperreports.engine.util.JRLoader;
-//import net.sf.jasperreports.view.JasperViewer;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsReporteTopVendedor extends javax.swing.JInternalFrame {
@@ -202,22 +193,34 @@ public class transportSolutionsReporteTopVendedor extends javax.swing.JInternalF
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        BoletaBD b = new BoletaBD();
-        DefaultTableModel tabla_temporal;
+        if (dcFechaInicio.getDate().toString().length() > 0) {
+            if (dcFechaFinal.getDate().toString().length() > 0) {
 
-        int diaInicio = dcFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
-        int mesInicio = dcFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-        int anioInicio = dcFechaInicio.getCalendar().get(Calendar.YEAR);
-        String fechaInincio = anioInicio + "-" + mesInicio + "-" + diaInicio;
+                BoletaBD b = new BoletaBD();
+                DefaultTableModel tabla_temporal;
 
-        int diaFin = dcFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
-        int mesFin = dcFechaFinal.getCalendar().get(Calendar.MONTH) + 1;
-        int anioFin = dcFechaFinal.getCalendar().get(Calendar.YEAR);
-        String fechaFin = anioFin + "-" + mesFin + "-" + diaFin;
+                int diaInicio = dcFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
+                int mesInicio = dcFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
+                int anioInicio = dcFechaInicio.getCalendar().get(Calendar.YEAR);
+                String fechaInincio = anioInicio + "-" + mesInicio + "-" + diaInicio;
 
-        tabla_temporal = b.topVendedor(fechaInincio, fechaFin);
-        reporteTopClientes.setModel(tabla_temporal);
-        espaciadoTabla();
+                int diaFin = dcFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
+                int mesFin = dcFechaFinal.getCalendar().get(Calendar.MONTH) + 1;
+                int anioFin = dcFechaFinal.getCalendar().get(Calendar.YEAR);
+                String fechaFin = anioFin + "-" + mesFin + "-" + diaFin;
+
+                tabla_temporal = b.topVendedor(fechaInincio, fechaFin);
+                reporteTopClientes.setModel(tabla_temporal);
+                espaciadoTabla();
+
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar fecha final");
+                op.setMessageType(JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe seleccionar fecha de inicio");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -226,39 +229,9 @@ public class transportSolutionsReporteTopVendedor extends javax.swing.JInternalF
             rtv = new Reporte();
             rtv.exportarExcel(reporteTopClientes);
         } catch (IOException e) {
-
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
-//        Conexion mysql = new Conexion();
-//        Connection cn = null;
-//        try {
-//
-//            JasperReport reporte = null;
-//            String ruta = "C:\\Users\\gianmarcoCossio\\Documents\\NetBeansProjects\\transport solutions\\transportSolutions\\src\\main\\java\\transportSolutionsReporte\\ReporteTopVendedor.jasper";
-//
-//            int diaInicio = dcFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
-//            int mesInicio = dcFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-//            int anioInicio = dcFechaInicio.getCalendar().get(Calendar.YEAR);
-//            String fechaInincio = anioInicio + "-" + mesInicio + "-" + diaInicio;
-//
-//            int diaFin = dcFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
-//            int mesFin = dcFechaFinal.getCalendar().get(Calendar.MONTH) + 1;
-//            int anioFin = dcFechaFinal.getCalendar().get(Calendar.YEAR);
-//            String fechaFin = anioFin + "-" + mesFin + "-" + diaFin;
-//
-//            Map parametro = new HashMap();
-//            parametro.clear();
-//            parametro.put("fechaInicio", fechaInincio);
-//            parametro.put("fechaFinal", fechaFin);
-//
-//            reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
-//            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
-//            JasperViewer view = new JasperViewer(print, false);
-//            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//            view.setTitle("Reporte Top de Vendedores");
-//            view.setVisible(true);
-//        } catch (JRException ex) {
-//            Logger.getLogger(transportSolutionsReporteTopVendedor.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

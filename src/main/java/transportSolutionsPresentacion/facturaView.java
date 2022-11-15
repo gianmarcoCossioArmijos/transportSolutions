@@ -28,7 +28,6 @@ public class facturaView extends javax.swing.JInternalFrame {
     DefaultTableModel tablaProductos;
     String codigoActual = "";
     String serieActual = "";
-    String estado = "ACTIVO";
 
     public facturaView() {
 
@@ -156,24 +155,10 @@ public class facturaView extends javax.swing.JInternalFrame {
         String serie = lista_correlativos.get(0).getSerie();
         int se = Integer.parseInt(serie);
 
-//        CAMBIAR EL NUMERO 20 POR 999999, YA QUE SOLO SE COLOCO ASÌ PARA PROBAR EL METODO
-        if (se < 30) {
-
-            serieActual = serie(se);
-            int antiguoNumero = Integer.valueOf(codigo) + 1;
-            codigoActual = correlativo(antiguoNumero);
-            txtCorrelativo.setText(serieActual + "-" + codigoActual);
-        } else {
-
-            int nuevaSerie = se + 1;
-            serieActual = serie(nuevaSerie);
-            int nuevoCodigo = 000001;
-            codigoActual = correlativo(nuevoCodigo);
-            cf.setSerie(serieActual);
-            cf.setCodigo(codigoActual);
-            cfbd.registrarCorrelativoF(cf);
-            txtCorrelativo.setText(serieActual + "-" + codigoActual);
-        }
+        serieActual = serie(se);
+        int antiguoNumero = Integer.valueOf(codigo) + 1;
+        codigoActual = correlativo(antiguoNumero);
+        txtCorrelativo.setText(serieActual + "-" + codigoActual);
     }
 
     private String correlativo(int antiguoNumero) {
@@ -558,7 +543,7 @@ public class facturaView extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtPrecio)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -708,11 +693,11 @@ public class facturaView extends javax.swing.JInternalFrame {
                         .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                        .addComponent(btnProforma, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProforma, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(163, 163, 163))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -903,126 +888,131 @@ public class facturaView extends javax.swing.JInternalFrame {
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
 
         if (cmbTipo.getSelectedItem().toString().length() > 0) {
-            if (txtFecha.getText().length() > 0) {
-                if (txtCorrelativo.getText().length() > 0) {
-                    if (txtRuc.getText().length() > 0) {
-                        if (txtRazonSocial.getText().length() > 0) {
-                            if (txtTelefono.getText().length() > 0) {
+            if (!"SELECCIONAR".equals(cmbTipo.getSelectedItem().toString())) {
+                if (txtFecha.getText().length() > 0) {
+                    if (txtCorrelativo.getText().length() > 0) {
+                        if (txtRuc.getText().length() > 0) {
+                            if (txtRazonSocial.getText().length() > 0) {
+                                if (txtTelefono.getText().length() > 0) {
 
-                                Factura f = new Factura();
-                                FacturaBD fbd = new FacturaBD();
+                                    Factura f = new Factura();
+                                    FacturaBD fbd = new FacturaBD();
 
-                                f.setTotal((Double.parseDouble(txtTotal.getText())));
-                                f.setFecha(txtFecha.getText());
-                                f.setCorrelativo(txtCorrelativo.getText());
-                                f.setEstado(estado);
-                                f.setTipo(cmbTipo.getSelectedItem().toString());
+                                    f.setTotal((Double.parseDouble(txtTotal.getText())));
+                                    f.setFecha(txtFecha.getText());
+                                    f.setCorrelativo(txtCorrelativo.getText());
+                                    f.setEstado("ACTIVO");
+                                    f.setTipo(cmbTipo.getSelectedItem().toString());
 
-                                ClienteRucBD crbd = new ClienteRucBD();
-                                int idCliente = Integer.parseInt(crbd.obtenerIdClienteRuc(txtRuc.getText()));
-                                f.setIdClienteRuc(idCliente);
+                                    ClienteRucBD crbd = new ClienteRucBD();
+                                    int idCliente = Integer.parseInt(crbd.obtenerIdClienteRuc(txtRuc.getText()));
+                                    f.setIdClienteRuc(idCliente);
 
-                                UsuarioBD ubd = new UsuarioBD();
-                                int idUsuario = Integer.parseInt(ubd.obtenerIdUsuario(transportSolutionsLogin.dni_publico));
-                                f.setIdUsuario(idUsuario);
-                                f.setIdCaja(transportSolutionsSesionCajaView.idCaja);
+                                    UsuarioBD ubd = new UsuarioBD();
+                                    int idUsuario = Integer.parseInt(ubd.obtenerIdUsuario(transportSolutionsLogin.dni_publico));
+                                    f.setIdUsuario(idUsuario);
+                                    f.setIdCaja(transportSolutionsSesionCajaView.idCaja);
 
-                                int idFactura = fbd.registrarFactura(f);
-                                registrarDetalleVenta(idFactura);
+                                    int idFactura = fbd.registrarFactura(f);
+                                    registrarDetalleVenta(idFactura);
 
-                                if (cmbTipo.getSelectedItem().toString().equals("CARGA")) {
+                                    if (cmbTipo.getSelectedItem().toString().equals("CARGA")) {
 
-                                    DefaultTableModel tabla = (DefaultTableModel) tabla_factura.getModel();
-                                    int filas = tabla.getRowCount();
+                                        DefaultTableModel tabla = (DefaultTableModel) tabla_factura.getModel();
+                                        int filas = tabla.getRowCount();
 
-                                    Carga carga = new Carga();
-                                    CargaBD cargabd = new CargaBD();
+                                        Carga carga = new Carga();
+                                        CargaBD cargabd = new CargaBD();
 
-                                    for (int i = 0; i < filas; i++) {
+                                        for (int i = 0; i < filas; i++) {
 
-                                        carga.setFechaVenta(txtFecha.getText());
-                                        carga.setOrigen(tabla_factura.getValueAt(i, 0).toString());
-                                        carga.setDestino(tabla_factura.getValueAt(i, 1).toString());
-                                        carga.setDniDestinatario(txtDniDestinatario.getText());
-                                        carga.setDestinatario(txtDestinatario.getText());
-                                        carga.setDescripcion(tabla_factura.getValueAt(i, 3).toString());
-                                        carga.setEstado("PENDIENTE");
-                                        carga.setCorrelativo(txtCorrelativo.getText());
-                                        cargabd.registrarCarga(carga);
+                                            carga.setFechaVenta(txtFecha.getText());
+                                            carga.setOrigen(tabla_factura.getValueAt(i, 0).toString());
+                                            carga.setDestino(tabla_factura.getValueAt(i, 1).toString());
+                                            carga.setDniDestinatario(txtDniDestinatario.getText());
+                                            carga.setDestinatario(txtDestinatario.getText());
+                                            carga.setDescripcion(tabla_factura.getValueAt(i, 3).toString());
+                                            carga.setEstado("PENDIENTE");
+                                            carga.setCorrelativo(txtCorrelativo.getText());
+                                            cargabd.registrarCarga(carga);
+                                        }
+                                    } else if (cmbTipo.getSelectedItem().toString().equals("ENCOMIENDA")) {
+
+                                        DefaultTableModel tabla = (DefaultTableModel) tabla_factura.getModel();
+                                        int filas = tabla.getRowCount();
+
+                                        Recepcion recepcion = new Recepcion();
+                                        RecepcionBD recepcionbd = new RecepcionBD();
+
+                                        for (int i = 0; i < filas; i++) {
+
+                                            recepcion.setFechaVenta(txtFecha.getText());
+                                            recepcion.setOrigen(tabla_factura.getValueAt(i, 0).toString());
+                                            recepcion.setDestino(tabla_factura.getValueAt(i, 1).toString());
+                                            recepcion.setDescripcion(tabla_factura.getValueAt(i, 3).toString());
+                                            recepcion.setEstado("PENDIENTE");
+                                            recepcion.setDniDestinatario(txtDniDestinatario.getText());
+                                            recepcion.setDestinatario(txtDestinatario.getText());
+                                            recepcion.setCorrelativo(txtCorrelativo.getText());
+                                            recepcionbd.registrarRecepcion(recepcion);
+                                        }
+                                    } else if (cmbTipo.getSelectedItem().toString().equals("FLETE")) {
+
+                                        Flete flete = new Flete();
+                                        FleteBD fletebd = new FleteBD();
+
+                                        flete.setFechaVenta(txtFecha.getText());
+                                        flete.setOrigen(tabla_factura.getValueAt(0, 0).toString());
+                                        flete.setDestino(tabla_factura.getValueAt(0, 1).toString());
+                                        flete.setDocumentoCliente(txtRuc.getText());
+                                        flete.setCliente(txtRazonSocial.getText());
+                                        flete.setDescripcion(tabla_factura.getValueAt(0, 3).toString());
+                                        flete.setEstado("PENDIENTE");
+                                        flete.setCorrelativo(txtCorrelativo.getText());
+                                        fletebd.registrarFlete(flete);
                                     }
-                                } else if (cmbTipo.getSelectedItem().toString().equals("ENCOMIENDA")) {
 
-                                    DefaultTableModel tabla = (DefaultTableModel) tabla_factura.getModel();
-                                    int filas = tabla.getRowCount();
+                                    CorrelativoFactura cf = new CorrelativoFactura();
+                                    CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
+                                    cf.setCodigo(codigoActual);
+                                    cf.setSerie(serieActual);
+                                    cfbd.actualizarCorrelativo(cf);
 
-                                    Recepcion recepcion = new Recepcion();
-                                    RecepcionBD recepcionbd = new RecepcionBD();
-
-                                    for (int i = 0; i < filas; i++) {
-
-                                        recepcion.setFechaVenta(txtFecha.getText());
-                                        recepcion.setOrigen(tabla_factura.getValueAt(i, 0).toString());
-                                        recepcion.setDestino(tabla_factura.getValueAt(i, 1).toString());
-                                        recepcion.setDescripcion(tabla_factura.getValueAt(i, 3).toString());
-                                        recepcion.setEstado("PENDIENTE");
-                                        recepcion.setDniDestinatario(txtDniDestinatario.getText());
-                                        recepcion.setDestinatario(txtDestinatario.getText());
-                                        recepcion.setCorrelativo(txtCorrelativo.getText());
-                                        recepcionbd.registrarRecepcion(recepcion);
-                                    }
-                                } else if (cmbTipo.getSelectedItem().toString().equals("FLETE")) {
-
-                                    Flete flete = new Flete();
-                                    FleteBD fletebd = new FleteBD();
-
-                                    flete.setFechaVenta(txtFecha.getText());
-                                    flete.setOrigen(tabla_factura.getValueAt(0, 0).toString());
-                                    flete.setDestino(tabla_factura.getValueAt(0, 1).toString());
-                                    flete.setDocumentoCliente(txtRuc.getText());
-                                    flete.setCliente(txtRazonSocial.getText());
-                                    flete.setDescripcion(tabla_factura.getValueAt(0, 3).toString());
-                                    flete.setEstado("PENDIENTE");
-                                    flete.setCorrelativo(txtCorrelativo.getText());
-                                    fletebd.registrarFlete(flete);
+                                    limpiarCliente();
+                                    limpiarTabla();
+                                    txtTotal.setText("");
+                                    txtIgv.setText("");
+                                    txtDniDestinatario.setText("");
+                                    txtDestinatario.setText("");
+                                    cmbTipo.setSelectedIndex(0);
+                                    obtenerFecha();
+                                    obtenerNumero();
+                                } else {
+                                    JOptionPane op = new JOptionPane("Debe ingresar telefono");
+                                    op.setMessageType(JOptionPane.WARNING_MESSAGE);
                                 }
-
-                                CorrelativoFactura cf = new CorrelativoFactura();
-                                CorrelativoFacturaBD cfbd = new CorrelativoFacturaBD();
-                                cf.setCodigo(codigoActual);
-                                cf.setSerie(serieActual);
-                                cfbd.actualizarCorrelativo(cf);
-
-                                limpiarCliente();
-                                limpiarTabla();
-                                txtTotal.setText("");
-                                txtIgv.setText("");
-                                txtDniDestinatario.setText("");
-                                txtDestinatario.setText("");
-                                cmbTipo.setSelectedIndex(0);
-                                obtenerFecha();
-                                obtenerNumero();
                             } else {
-                                JOptionPane op = new JOptionPane("Debe ingresar telefono");
+                                JOptionPane op = new JOptionPane("Debe ingresar razon social");
                                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
                             }
                         } else {
-                            JOptionPane op = new JOptionPane("Debe ingresar razon social");
+                            JOptionPane op = new JOptionPane("Debe ingresar ruc");
                             op.setMessageType(JOptionPane.WARNING_MESSAGE);
                         }
                     } else {
-                        JOptionPane op = new JOptionPane("Debe ingresar ruc");
+                        JOptionPane op = new JOptionPane("Debe ingresar correlativo");
                         op.setMessageType(JOptionPane.WARNING_MESSAGE);
                     }
                 } else {
-                    JOptionPane op = new JOptionPane("Debe ingresar correlativo");
+                    JOptionPane op = new JOptionPane("Debe ingresar fecha");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane op = new JOptionPane("Debe ingresar fecha");
+                JOptionPane op = new JOptionPane("Debe indicar si la venta es carga, encomienda, o flete");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane op = new JOptionPane("Debe indicar si la venta es carga o encomienda seleccionando en el recuadro tipo");
+            JOptionPane op = new JOptionPane("Debe indicar si la venta es carga, encomienda, o flete");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnVentaActionPerformed
@@ -1063,19 +1053,19 @@ public class facturaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDniDestinatarioKeyPressed
 
     private void txtRucKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucKeyTyped
-        
-        char  caracter = evt.getKeyChar();   
-        if (Character.isLetter(caracter) && caracter != KeyEvent.VK_SPACE){
+
+        char caracter = evt.getKeyChar();
+        if (Character.isLetter(caracter) && caracter != KeyEvent.VK_SPACE) {
             evt.consume();
-        } 
+        }
     }//GEN-LAST:event_txtRucKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        
-        char  caracter = evt.getKeyChar();   
-        if (Character.isLetter(caracter) && caracter != KeyEvent.VK_SPACE){
+
+        char caracter = evt.getKeyChar();
+        if (Character.isLetter(caracter) && caracter != KeyEvent.VK_SPACE) {
             evt.consume();
-        } 
+        }
     }//GEN-LAST:event_txtPrecioKeyTyped
 
 

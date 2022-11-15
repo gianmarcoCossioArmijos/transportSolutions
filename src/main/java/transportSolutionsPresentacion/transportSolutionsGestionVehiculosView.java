@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.VehiculoBD;
-import static transportSolutionsPresentacion.transportSolutionsReporteClienteRuc.reporteVenta;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsGestionVehiculosView extends javax.swing.JInternalFrame {
@@ -27,6 +26,15 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
         reporteVehiculos.getColumnModel().getColumn(8).setPreferredWidth(160);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteVehiculos.getModel();
+        int filas = reporteVehiculos.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,6 +51,7 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         btnDescargar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -104,7 +113,7 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -163,6 +172,14 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +195,8 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
                     .addComponent(txtEliminar)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoVehiculo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento)
                 .addContainerGap())
@@ -205,8 +223,10 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDescargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -290,22 +310,6 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
 
     private void txtBuscarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarVehiculoActionPerformed
 
-        if (txtBuscarVehiculo.getText().length() > 0) {
-
-            VehiculoBD vbd = new VehiculoBD();
-
-            String buscar = txtBuscarVehiculo.getText().toUpperCase();
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = vbd.buscarVehiculo(buscar);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteVehiculos.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar placa");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarVehiculoActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -329,7 +333,30 @@ public class transportSolutionsGestionVehiculosView extends javax.swing.JInterna
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        
+        if (txtBuscarVehiculo.getText().length() > 0) {
+
+            VehiculoBD vbd = new VehiculoBD();
+
+            String buscar = txtBuscarVehiculo.getText().toUpperCase();
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = vbd.buscarVehiculo(buscar);
+
+            if (tabla_temporal.getRowCount() > 0) {
+                reporteVehiculos.setModel(tabla_temporal);
+                espaciadoTabla();
+            } else {
+                limpiarTabla();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar placa");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnDescargar;
     public javax.swing.JButton btnEditarVehiculo;
     public javax.swing.JButton btnEliminarVehiculo;

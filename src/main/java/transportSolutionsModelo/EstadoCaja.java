@@ -4,7 +4,9 @@ package transportSolutionsModelo;
 public class EstadoCaja {
     
     private String estado;
-    private double montoCajaChica;
+    private double montoApertura;
+    private double montoCierre;
+    private String fecha;
     private int idCaja;
     private int idTurno;
     private int idUsuario;
@@ -12,10 +14,12 @@ public class EstadoCaja {
     public EstadoCaja() {
     }
 
-    public EstadoCaja(int idUsuario, String estado, double montoCajaChica, int idCaja) {
+    public EstadoCaja(int idUsuario, String estado, double montoApertura, double montoCierre, String fecha, int idCaja) {
         this.idUsuario = idUsuario;
         this.estado = estado;
-        this.montoCajaChica = montoCajaChica;
+        this.montoApertura = montoApertura;
+        this.montoCierre = montoCierre;
+        this.fecha = fecha;
         this.idCaja = idCaja;
     }
 
@@ -35,12 +39,28 @@ public class EstadoCaja {
         this.estado = estado;
     }
 
-    public double getMontoCajaChica() {
-        return montoCajaChica;
+    public double getMontoApertura() {
+        return montoApertura;
     }
 
-    public void setMontoCajaChica(double montoCajaChica) {
-        this.montoCajaChica = montoCajaChica;
+    public void setMontoApertura(double montoApertura) {
+        this.montoApertura = montoApertura;
+    }
+
+    public double getMontoCierre() {
+        return montoCierre;
+    }
+
+    public void setMontoCierre(double montoCierre) {
+        this.montoCierre = montoCierre;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public int getIdCaja() {

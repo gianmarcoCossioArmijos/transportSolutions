@@ -2,6 +2,7 @@ package transportSolutionsPresentacion;
 
 import java.io.IOException;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.BoletaBD;
 import transportSolutionsLogica.DetalleBoletaBD;
@@ -10,22 +11,30 @@ import transportSolutionsLogica.FacturaBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsReporteVentaFecha extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsReporteVentaFecha() {
         initComponents();
-        espaciadoTabla();
     }
 
-    private void espaciadoTabla() {
+    private void espaciadoTablaBoleta() {
 
-        reporteVenta.getColumnModel().getColumn(0).setPreferredWidth(20);
-        reporteVenta.getColumnModel().getColumn(5).setPreferredWidth(170);
-        reporteVenta.getColumnModel().getColumn(6).setPreferredWidth(170);
+        reporteVenta.getColumnModel().getColumn(0).setPreferredWidth(25);
+        reporteVenta.getColumnModel().getColumn(5).setPreferredWidth(50);
+        reporteVenta.getColumnModel().getColumn(6).setPreferredWidth(150);
+        reporteVenta.getColumnModel().getColumn(7).setPreferredWidth(150);
     }
 
-    private void limpiar() {
+    private void espaciadoTablaFactura() {
+
+        reporteVenta.getColumnModel().getColumn(0).setPreferredWidth(25);
+        reporteVenta.getColumnModel().getColumn(5).setPreferredWidth(50);
+        reporteVenta.getColumnModel().getColumn(6).setPreferredWidth(150);
+        reporteVenta.getColumnModel().getColumn(7).setPreferredWidth(150);
+    }
+
+    private void limpiarVenta() {
 
         DefaultTableModel temp = (DefaultTableModel) reporteVenta.getModel();
         int filas = reporteVenta.getRowCount();
@@ -33,11 +42,14 @@ public class transportSolutionsReporteVentaFecha extends javax.swing.JInternalFr
         for (int i = 0; filas > i; i++) {
             temp.removeRow(0);
         }
+    }
+
+    private void limpiarDetalleVenta() {
 
         DefaultTableModel temporal = (DefaultTableModel) reporteDetalleVenta.getModel();
         int fila = reporteDetalleVenta.getRowCount();
 
-        for (int i = 0; filas > i; i++) {
+        for (int i = 0; fila > i; i++) {
             temporal.removeRow(0);
         }
     }
@@ -247,79 +259,127 @@ public class transportSolutionsReporteVentaFecha extends javax.swing.JInternalFr
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
 
-        limpiar();
+        limpiarVenta();
+        limpiarDetalleVenta();
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        int diaInicio = dcFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
-        int mesInicio = dcFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
-        int anioInicio = dcFechaInicio.getCalendar().get(Calendar.YEAR);
-        String fechaInincio = anioInicio + "-" + mesInicio + "-" + diaInicio;
+        if (dcFechaInicio.getDate().toString().length() > 0) {
+            if (dcFechaFinal.getDate().toString().length() > 0) {
 
-        int diaFin = dcFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
-        int mesFin = dcFechaFinal.getCalendar().get(Calendar.MONTH) + 1;
-        int anioFin = dcFechaFinal.getCalendar().get(Calendar.YEAR);
-        String fechaFin = anioFin + "-" + mesFin + "-" + diaFin;
+                int diaInicio = dcFechaInicio.getCalendar().get(Calendar.DAY_OF_MONTH);
+                int mesInicio = dcFechaInicio.getCalendar().get(Calendar.MONTH) + 1;
+                int anioInicio = dcFechaInicio.getCalendar().get(Calendar.YEAR);
+                String fechaInincio = anioInicio + "-" + mesInicio + "-" + diaInicio;
 
-        if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
+                int diaFin = dcFechaFinal.getCalendar().get(Calendar.DAY_OF_MONTH);
+                int mesFin = dcFechaFinal.getCalendar().get(Calendar.MONTH) + 1;
+                int anioFin = dcFechaFinal.getCalendar().get(Calendar.YEAR);
+                String fechaFin = anioFin + "-" + mesFin + "-" + diaFin;
 
-            DefaultTableModel tabla_temporal;
-            BoletaBD bbd = new BoletaBD();
-            tabla_temporal = bbd.reportarBoletaFecha(fechaInincio, fechaFin);
-            reporteVenta.setModel(tabla_temporal);
-            espaciadoTabla();
+                if (!"SELECCIONAR".equals(cmbTipoDocumento.getSelectedItem().toString())) {
+                    if (cmbTipoDocumento.getSelectedItem().toString().equals("BOLETA")) {
 
+                        DefaultTableModel tabla_temporal = (DefaultTableModel) reporteVenta.getModel();
+                        BoletaBD bbd = new BoletaBD();
+                        tabla_temporal = bbd.reportarBoletaFecha(fechaInincio, fechaFin);
+
+                        if (tabla_temporal.getRowCount() > 0) {
+
+                            reporteVenta.setModel(tabla_temporal);
+                            espaciadoTablaBoleta();
+
+                        } else {
+                            limpiarVenta();
+                        }
+                    } else if (cmbTipoDocumento.getSelectedItem().toString().equals("FACTURA")) {
+
+                        DefaultTableModel tabla_temporal;
+                        FacturaBD fbd = new FacturaBD();
+                        tabla_temporal = fbd.reportarFacturaFecha(fechaInincio, fechaFin);
+
+                        if (tabla_temporal.getRowCount() > 0) {
+
+                            reporteVenta.setModel(tabla_temporal);
+                            espaciadoTablaFactura();
+
+                        } else {
+                            limpiarVenta();
+                        }
+                    }
+                } else {
+                    JOptionPane op = new JOptionPane("Debe seleccionar una tipo de documento");
+                    op.setMessageType(JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane op = new JOptionPane("Debe seleccionar fecha final");
+                op.setMessageType(JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-
-            DefaultTableModel tabla_temporal;
-            FacturaBD fbd = new FacturaBD();
-            tabla_temporal = fbd.reportarFacturaFecha(fechaInincio, fechaFin);
-            reporteVenta.setModel(tabla_temporal);
-            espaciadoTabla();
+            JOptionPane op = new JOptionPane("Debe seleccionar fecha de inicio");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void reporteVentaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteVentaMousePressed
-        
+
         BoletaBD bbd = new BoletaBD();
         DefaultTableModel tabla_temporal = (DefaultTableModel) reporteVenta.getModel();
         int fila_seleccionada = reporteVenta.getSelectedRow();
         String id = tabla_temporal.getValueAt(fila_seleccionada, 0).toString();
-        String verificar =  bbd.buscarBoleta(Integer.parseInt(id));
-        
+        String verificar = bbd.buscarBoleta(Integer.parseInt(id));
+
         if (verificar != null) {
 
             int idventa = Integer.parseInt(id);
             DetalleBoletaBD dbbd = new DetalleBoletaBD();
-            DefaultTableModel tabla = dbbd.buscarDetalleBoleta(idventa);
+            DefaultTableModel tabla = (DefaultTableModel) reporteDetalleVenta.getModel();
+            tabla = dbbd.buscarDetalleBoleta(idventa);
 
-            reporteDetalleVenta.setModel(tabla);
+            if (tabla.getRowCount() > 0) {
+
+                reporteDetalleVenta.setModel(tabla);
+
+            } else {
+                limpiarDetalleVenta();
+            }
         } else if (verificar == null) {
-            
+
             int idventa = Integer.parseInt(id);
             DetalleFacturaBD dfbd = new DetalleFacturaBD();
-            DefaultTableModel tabla = dfbd.buscarDetalleFactura(idventa);
+            DefaultTableModel tabla = (DefaultTableModel) reporteDetalleVenta.getModel();
+            tabla = dfbd.buscarDetalleFactura(idventa);
 
-            reporteDetalleVenta.setModel(tabla);
+            if (tabla.getRowCount() > 0) {
+
+                reporteDetalleVenta.setModel(tabla);
+
+            } else {
+                limpiarDetalleVenta();
+            }
         }
     }//GEN-LAST:event_reporteVentaMousePressed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimir1ActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteDetalleVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimir1ActionPerformed
 

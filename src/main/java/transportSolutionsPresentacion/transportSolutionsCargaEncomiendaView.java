@@ -61,7 +61,7 @@ public class transportSolutionsCargaEncomiendaView extends javax.swing.JInternal
 
         btnRecepcionar.setBackground(new java.awt.Color(204, 204, 255));
         btnRecepcionar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRecepcionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo_vehiculo.png"))); // NOI18N
+        btnRecepcionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recepcionar_carga_encomienda.png"))); // NOI18N
         btnRecepcionar.setText("Recepcionar");
         btnRecepcionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,47 +189,60 @@ public class transportSolutionsCargaEncomiendaView extends javax.swing.JInternal
     private void btnRecepcionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecepcionarActionPerformed
 
         if (txtModificar.getText().length() > 0) {
-
-            CargaBD cbd = new CargaBD();
-            DefaultTableModel modelo = (DefaultTableModel) reporteCargaEncomienda.getModel();
+            
             int id = Integer.parseInt(txtModificar.getText());
-            String buscarCarga = cbd.BuscarIdCarga(id);
-
-            if (buscarCarga.length() > 0) {
+            
+            if (cmbCargaEncomienda.getSelectedItem().toString().equals("CARGA"))  {
 
                 Carga c = new Carga();
+                CargaBD cbd = new CargaBD();
+                DefaultTableModel modelo = (DefaultTableModel) reporteCargaEncomienda.getModel();
+                String buscarCarga = cbd.BuscarIdCarga(id);
 
-                c.setFechaVenta(modelo.getValueAt(filaSeleccionada, 1).toString());
-                c.setOrigen(modelo.getValueAt(filaSeleccionada, 2).toString());
-                c.setDestino(modelo.getValueAt(filaSeleccionada, 3).toString());
-                c.setDniDestinatario(modelo.getValueAt(filaSeleccionada, 4).toString());
-                c.setDestinatario(modelo.getValueAt(filaSeleccionada, 5).toString());
-                c.setDescripcion(modelo.getValueAt(filaSeleccionada, 6).toString());
-                c.setCorrelativo(modelo.getValueAt(filaSeleccionada, 8).toString());
-                c.setEstado("RECEPCIONADO");
+                if (buscarCarga.length() > 0) {
 
-                cbd.modificarCarga(c, id);
-                limpiar();
-                limpiarTabla();
-            } else {
-                
+                    c.setFechaVenta(modelo.getValueAt(filaSeleccionada, 1).toString());
+                    c.setOrigen(modelo.getValueAt(filaSeleccionada, 2).toString());
+                    c.setDestino(modelo.getValueAt(filaSeleccionada, 3).toString());
+                    c.setDniDestinatario(modelo.getValueAt(filaSeleccionada, 4).toString());
+                    c.setDestinatario(modelo.getValueAt(filaSeleccionada, 5).toString());
+                    c.setDescripcion(modelo.getValueAt(filaSeleccionada, 6).toString());
+                    c.setCorrelativo(modelo.getValueAt(filaSeleccionada, 8).toString());
+                    c.setEstado("RECEPCIONADO");
+
+                    cbd.modificarCarga(c, id);
+                    limpiar();
+                    limpiarTabla();
+                } else {
+                    buscarCarga = "null";
+                }
+
+            } else if (cmbCargaEncomienda.getSelectedItem().toString().equals("ENCOMIENDA")) {
+
                 Recepcion r = new Recepcion();
                 RecepcionBD rbd = new RecepcionBD();
-                
-                r.setFechaVenta(modelo.getValueAt(filaSeleccionada, 1).toString());
-                r.setOrigen(modelo.getValueAt(filaSeleccionada, 2).toString());
-                r.setDestino(modelo.getValueAt(filaSeleccionada, 3).toString());
-                r.setDescripcion(modelo.getValueAt(filaSeleccionada, 4).toString());
-                r.setDniDestinatario(modelo.getValueAt(filaSeleccionada, 6).toString());
-                r.setDestinatario(modelo.getValueAt(filaSeleccionada, 7).toString());
-                r.setCorrelativo(modelo.getValueAt(filaSeleccionada, 8).toString());
-                r.setEstado("RECEPCIONADO");
-                
-                rbd.modificarRecepcion(r, id);
-                limpiar();
-                limpiarTabla();
-            }
+                DefaultTableModel tabla_temporal = (DefaultTableModel) reporteCargaEncomienda.getModel();
+                String buscarRecepcion = rbd.BuscarIdRecepcion(id);
 
+                if (buscarRecepcion.length() > 0) {
+
+                    r.setFechaVenta(tabla_temporal.getValueAt(filaSeleccionada, 1).toString());
+                    r.setOrigen(tabla_temporal.getValueAt(filaSeleccionada, 2).toString());
+                    r.setDestino(tabla_temporal.getValueAt(filaSeleccionada, 3).toString());
+                    r.setDescripcion(tabla_temporal.getValueAt(filaSeleccionada, 4).toString());
+                    r.setDniDestinatario(tabla_temporal.getValueAt(filaSeleccionada, 6).toString());
+                    r.setDestinatario(tabla_temporal.getValueAt(filaSeleccionada, 7).toString());
+                    r.setCorrelativo(tabla_temporal.getValueAt(filaSeleccionada, 8).toString());
+                    r.setEstado("RECEPCIONADO");
+
+                    rbd.modificarRecepcion(r, id);
+                    limpiar();
+                    limpiarTabla();
+                } else {
+                    buscarRecepcion = "null";
+                }
+
+            }
         } else {
             JOptionPane op = new JOptionPane("Debe seleccionar carga o encomienda que desea recepcionar");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);
@@ -309,7 +322,7 @@ public class transportSolutionsCargaEncomiendaView extends javax.swing.JInternal
     }//GEN-LAST:event_reporteCargaEncomiendaMouseClicked
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteCargaEncomienda);

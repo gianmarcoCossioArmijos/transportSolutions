@@ -88,7 +88,7 @@
               <Component id="btnMostrarSesiones" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnUsarSesion" min="-2" pref="57" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="58" max="32767" attributes="0"/>
               <Component id="btnSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
@@ -144,12 +144,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="879" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="879" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="524" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -169,8 +169,8 @@
                     <Column editable="true" title="CAJA" type="java.lang.Object"/>
                     <Column editable="true" title="TURNO" type="java.lang.Object"/>
                     <Column editable="true" title="USUARIO" type="java.lang.Object"/>
-                    <Column editable="true" title="CAJA CHICA APERTURA" type="java.lang.Object"/>
-                    <Column editable="true" title="CAJA CHICA CIERRE" type="java.lang.Object"/>
+                    <Column editable="true" title="MONTO APERTURA" type="java.lang.Object"/>
+                    <Column editable="true" title="MONTO CIERRE" type="java.lang.Object"/>
                     <Column editable="true" title="TOTAL" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -219,6 +219,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reporteCierreCajaMouseClicked"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reporteCierreCajaMousePressed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

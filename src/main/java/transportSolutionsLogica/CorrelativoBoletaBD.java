@@ -149,7 +149,7 @@ public class CorrelativoBoletaBD {
     
     public List<CorrelativoBoleta> obtenerNumero () {
         List<CorrelativoBoleta> lista = new ArrayList<>();
-        sql = "SELECT idBoletaCorrelativo,serie,codigo FROM boletaCorrelativo";
+        sql = "SELECT idBoletaCorrelativo,serie,codigo FROM boletaCorrelativo ORDER BY serie DESC LIMIT 1";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);

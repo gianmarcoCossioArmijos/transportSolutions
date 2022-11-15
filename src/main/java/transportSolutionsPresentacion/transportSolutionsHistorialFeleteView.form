@@ -36,7 +36,6 @@
                   <Component id="dcFecha" max="32767" attributes="0"/>
                   <Component id="cmbFlete" max="32767" attributes="0"/>
                   <Component id="cmbEstado" pref="155" max="32767" attributes="0"/>
-                  <Component id="txtId" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="panelMantenimiento" min="-2" max="-2" attributes="0"/>
@@ -55,9 +54,7 @@
                       <Component id="cmbFlete" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cmbEstado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="txtId" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnDescargar" min="-2" max="-2" attributes="0"/>
@@ -262,8 +259,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtId">
     </Component>
   </SubComponents>
 </Form>

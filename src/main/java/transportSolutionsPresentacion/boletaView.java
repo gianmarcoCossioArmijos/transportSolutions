@@ -2,7 +2,6 @@ package transportSolutionsPresentacion;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -15,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -42,7 +42,6 @@ public class boletaView extends javax.swing.JInternalFrame {
     DefaultTableModel tablaProductos;
     String codigoActual = "";
     String serieActual = "";
-    String estado = "ACTIVO";
 
     public boletaView() {
 
@@ -168,26 +167,13 @@ public class boletaView extends javax.swing.JInternalFrame {
         List<CorrelativoBoleta> lista_correlativos = cbbd.obtenerNumero();
         String codigo = lista_correlativos.get(0).getCodigo();
         String serie = lista_correlativos.get(0).getSerie();
+        int cod = Integer.parseInt(codigo);
+
         int se = Integer.parseInt(serie);
-
-//        CAMBIAR EL NUMERO 20 POR 999999, YA QUE SOLO SE COLOCO ASÌ PARA PROBAR EL METODO
-        if (se < 60) {
-
-            serieActual = serie(se);
-            int antiguoNumero = Integer.valueOf(codigo) + 1;
-            codigoActual = correlativo(antiguoNumero);
-            txtCorrelativo.setText(serieActual + "-" + codigoActual);
-        } else {
-
-            int nuevaSerie = se + 1;
-            serieActual = serie(nuevaSerie);
-            int nuevoCodigo = 000001;
-            codigoActual = correlativo(nuevoCodigo);
-            cb.setSerie(serieActual);
-            cb.setCodigo(codigoActual);
-            cbbd.registrarCorrelativoB(cb);
-            txtCorrelativo.setText(serieActual + "-" + codigoActual);
-        }
+        serieActual = serie(se);
+        int antiguoNumero = Integer.valueOf(codigo) + 1;
+        codigoActual = correlativo(antiguoNumero);
+        txtCorrelativo.setText(serieActual + "-" + codigoActual);
     }
 
     private String correlativo(int antiguoNumero) {
@@ -289,17 +275,17 @@ public class boletaView extends javax.swing.JInternalFrame {
             Connection cn = mysql.conectar();
 
             JasperReport reporte = null;
-            String ruta = "src\\main\\java\\transportSolutionsReporte\\boletaReporte.jasper";
+            String ruta = "src\\main\\resources\\boletaReporte.jrxml";
 
             Map parametro = new HashMap();
             parametro.clear();
             parametro.put("b.idBoleta", id);
 
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(new File("").getAbsolutePath()+ruta);
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(new File("").getAbsolutePath() + ruta);
             JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
             JasperViewer view = new JasperViewer(print, false);
             view.setVisible(true);
-            
+
         } catch (JRException ex) {
             Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -664,7 +650,7 @@ public class boletaView extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARGA", "ENCOMIENDA", "FLETE" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CARGA", "ENCOMIENDA", "FLETE" }));
         cmbTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbTipoItemStateChanged(evt);
@@ -951,138 +937,170 @@ public class boletaView extends javax.swing.JInternalFrame {
     private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
 
         if (cmbTipo.getSelectedItem().toString().length() > 0) {
-            if (txtFecha.getText().length() > 0) {
-                if (txtCorrelativo.getText().length() > 0) {
-                    if (txtDni.getText().length() > 0) {
-                        if (txtNombres.getText().length() > 0) {
-                            if (txtTelefono.getText().length() > 0) {
-                                if (txtCaja.getText().length() > 0) {
+            if (!"SELECCIONAR".equals(cmbTipo.getSelectedItem().toString())) {
+                if (txtFecha.getText().length() > 0) {
+                    if (txtCorrelativo.getText().length() > 0) {
+                        if (txtDni.getText().length() > 0) {
+                            if (txtNombres.getText().length() > 0) {
+                                if (txtTelefono.getText().length() > 0) {
+                                    if (txtCaja.getText().length() > 0) {
 
-                                    Boleta b = new Boleta();
-                                    BoletaBD bbd = new BoletaBD();
+                                        Boleta b = new Boleta();
+                                        BoletaBD bbd = new BoletaBD();
 
-                                    b.setTotal((Double.parseDouble(txtTotal.getText())));
-                                    b.setFecha(txtFecha.getText());
-                                    b.setCorrelativo(txtCorrelativo.getText());
-                                    b.setEstado(estado);
+                                        b.setTotal((Double.parseDouble(txtTotal.getText())));
+                                        b.setFecha(txtFecha.getText());
+                                        b.setCorrelativo(txtCorrelativo.getText());
+                                        b.setEstado("ACTIVO");
 
-                                    ClienteNaturalBD cnbd = new ClienteNaturalBD();
-                                    int idCliente = Integer.parseInt(cnbd.obtenerIdClienteNatural(txtDni.getText()));
-                                    b.setIdClienteNatural(idCliente);
+                                        ClienteNaturalBD cnbd = new ClienteNaturalBD();
+                                        int idCliente = Integer.parseInt(cnbd.obtenerIdClienteNatural(txtDni.getText()));
+                                        b.setIdClienteNatural(idCliente);
 
-                                    UsuarioBD ubd = new UsuarioBD();
-                                    int idUsuario = Integer.parseInt(ubd.obtenerIdUsuario(transportSolutionsLogin.dni_publico));
-                                    b.setIdUsuario(idUsuario);
-                                    b.setIdCaja(transportSolutionsSesionCajaView.idCaja);
-                                    b.setTipo(cmbTipo.getSelectedItem().toString());
+                                        UsuarioBD ubd = new UsuarioBD();
+                                        int idUsuario = Integer.parseInt(ubd.obtenerIdUsuario(transportSolutionsLogin.dni_publico));
+                                        b.setIdUsuario(idUsuario);
+                                        b.setIdCaja(transportSolutionsSesionCajaView.idCaja);
+                                        b.setTipo(cmbTipo.getSelectedItem().toString());
 
-                                    int idBoleta = bbd.registrarBoleta(b);
-                                    registrarDetalleVenta(idBoleta);
+                                        int idBoleta = bbd.registrarBoleta(b);
 
-                                    if (cmbTipo.getSelectedItem().toString().equals("CARGA")) {
-
-                                        DefaultTableModel tabla = (DefaultTableModel) tabla_boleta.getModel();
-                                        int filas = tabla.getRowCount();
-
-                                        Carga carga = new Carga();
-                                        CargaBD cargabd = new CargaBD();
+                                        DefaultTableModel ventas_tabla = (DefaultTableModel) tabla_boleta.getModel();
+                                        int filas = ventas_tabla.getRowCount();
+                                        DetalleBoleta db = new DetalleBoleta();
+                                        DetalleBoletaBD dbbd = new DetalleBoletaBD();
 
                                         for (int i = 0; i < filas; i++) {
 
-                                            carga.setFechaVenta(txtFecha.getText());
-                                            carga.setOrigen(tabla_boleta.getValueAt(i, 0).toString());
-                                            carga.setDestino(tabla_boleta.getValueAt(i, 1).toString());
-                                            carga.setDniDestinatario(txtDniDestinatario.getText());
-                                            carga.setDestinatario(txtDestinatario.getText());
-                                            carga.setDescripcion(tabla_boleta.getValueAt(i, 3).toString());
-                                            carga.setEstado("PENDIENTE");
-                                            carga.setCorrelativo(txtCorrelativo.getText());
-                                            cargabd.registrarCarga(carga);
+                                            db.setOrigen(ventas_tabla.getValueAt(i, 0).toString());
+                                            db.setDestino(ventas_tabla.getValueAt(i, 1).toString());
+                                            db.setTipoCarga(ventas_tabla.getValueAt(i, 2).toString());
+                                            db.setDescripcion(ventas_tabla.getValueAt(i, 3).toString());
+                                            db.setPrecio(Double.parseDouble(ventas_tabla.getValueAt(i, 4).toString()));
+                                            db.setIdBoleta(idBoleta);
+                                            dbbd.registrarDetalleBoleta(db);
                                         }
-                                    } else if (cmbTipo.getSelectedItem().toString().equals("ENCOMIENDA")) {
 
-                                        DefaultTableModel tabla = (DefaultTableModel) tabla_boleta.getModel();
-                                        int filas = tabla.getRowCount();
+                                        if (cmbTipo.getSelectedItem().toString().equals("CARGA")) {
 
-                                        Recepcion recepcion = new Recepcion();
-                                        RecepcionBD recepcionbd = new RecepcionBD();
+                                            DefaultTableModel tabla = (DefaultTableModel) tabla_boleta.getModel();
+                                            int cantidad_filas = tabla.getRowCount();
 
-                                        for (int i = 0; i < filas; i++) {
+                                            Carga carga = new Carga();
+                                            CargaBD cargabd = new CargaBD();
 
-                                            recepcion.setFechaVenta(txtFecha.getText());
-                                            recepcion.setOrigen(tabla_boleta.getValueAt(i, 0).toString());
-                                            recepcion.setDestino(tabla_boleta.getValueAt(i, 1).toString());
-                                            recepcion.setDescripcion(tabla_boleta.getValueAt(i, 3).toString());
-                                            recepcion.setEstado("PENDIENTE");
-                                            recepcion.setDniDestinatario(txtDniDestinatario.getText());
-                                            recepcion.setDestinatario(txtDestinatario.getText());
-                                            recepcion.setCorrelativo(txtCorrelativo.getText());
-                                            recepcionbd.registrarRecepcion(recepcion);
+                                            for (int i = 0; i < cantidad_filas; i++) {
+
+                                                carga.setFechaVenta(txtFecha.getText());
+                                                carga.setOrigen(tabla_boleta.getValueAt(i, 0).toString());
+                                                carga.setDestino(tabla_boleta.getValueAt(i, 1).toString());
+                                                carga.setDniDestinatario(txtDniDestinatario.getText());
+                                                carga.setDestinatario(txtDestinatario.getText());
+                                                carga.setDescripcion(tabla_boleta.getValueAt(i, 3).toString());
+                                                carga.setEstado("PENDIENTE");
+                                                carga.setCorrelativo(txtCorrelativo.getText());
+                                                cargabd.registrarCarga(carga);
+                                            }
+                                        } else if (cmbTipo.getSelectedItem().toString().equals("ENCOMIENDA")) {
+
+                                            DefaultTableModel tabla = (DefaultTableModel) tabla_boleta.getModel();
+                                            int cantidad_filas = tabla.getRowCount();
+
+                                            Recepcion recepcion = new Recepcion();
+                                            RecepcionBD recepcionbd = new RecepcionBD();
+
+                                            for (int i = 0; i < cantidad_filas; i++) {
+
+                                                recepcion.setFechaVenta(txtFecha.getText());
+                                                recepcion.setOrigen(tabla_boleta.getValueAt(i, 0).toString());
+                                                recepcion.setDestino(tabla_boleta.getValueAt(i, 1).toString());
+                                                recepcion.setDescripcion(tabla_boleta.getValueAt(i, 3).toString());
+                                                recepcion.setEstado("PENDIENTE");
+                                                recepcion.setDniDestinatario(txtDniDestinatario.getText());
+                                                recepcion.setDestinatario(txtDestinatario.getText());
+                                                recepcion.setCorrelativo(txtCorrelativo.getText());
+                                                recepcionbd.registrarRecepcion(recepcion);
+                                            }
+                                        } else if (cmbTipo.getSelectedItem().toString().equals("FLETE")) {
+
+                                            Flete flete = new Flete();
+                                            FleteBD fletebd = new FleteBD();
+
+                                            flete.setFechaVenta(txtFecha.getText());
+                                            flete.setOrigen(tabla_boleta.getValueAt(0, 0).toString());
+                                            flete.setDestino(tabla_boleta.getValueAt(0, 1).toString());
+                                            flete.setDocumentoCliente(txtDni.getText());
+                                            flete.setCliente(txtNombres.getText());
+                                            flete.setDescripcion(tabla_boleta.getValueAt(0, 3).toString());
+                                            flete.setEstado("PENDIENTE");
+                                            flete.setCorrelativo(txtCorrelativo.getText());
+                                            fletebd.registrarFlete(flete);
                                         }
-                                    } else if (cmbTipo.getSelectedItem().toString().equals("FLETE")) {
 
-                                        Flete flete = new Flete();
-                                        FleteBD fletebd = new FleteBD();
+                                        CorrelativoBoleta c = new CorrelativoBoleta();
+                                        CorrelativoBoletaBD cbd = new CorrelativoBoletaBD();
+                                        c.setCodigo(codigoActual);
+                                        c.setSerie(serieActual);
+                                        cbd.actualizarCorrelativo(c);
 
-                                        flete.setFechaVenta(txtFecha.getText());
-                                        flete.setOrigen(tabla_boleta.getValueAt(0, 0).toString());
-                                        flete.setDestino(tabla_boleta.getValueAt(0, 1).toString());
-                                        flete.setDocumentoCliente(txtDni.getText());
-                                        flete.setCliente(txtNombres.getText());
-                                        flete.setDescripcion(tabla_boleta.getValueAt(0, 3).toString());
-                                        flete.setEstado("PENDIENTE");
-                                        flete.setCorrelativo(txtCorrelativo.getText());
-                                        fletebd.registrarFlete(flete);
+                                        try {
+                                            Conexion mysql = new Conexion();
+                                            Connection cn = mysql.conectar();
+                                            String ruta = "src\\main\\java\\transportSolutionsReporte\\boletaReporte.jasper";
+
+                                            Map parametro = new HashMap();
+                                            parametro.clear();
+                                            parametro.put("id", idBoleta);
+
+                                            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+                                            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
+                                            JasperViewer view = new JasperViewer(print, false);
+                                            view.setVisible(true);
+
+                                        } catch (JRException ex) {
+                                            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+
+                                        limpiarCliente();
+                                        limpiarTabla();
+                                        txtTotal.setText("");
+                                        txtIgv.setText("");
+                                        txtDniDestinatario.setText("");
+                                        txtDestinatario.setText("");
+                                        cmbTipo.setSelectedIndex(0);
+                                        obtenerFecha();
+                                        obtenerNumero();
+
+                                    } else {
+                                        JOptionPane op = new JOptionPane("Error en sesion de caja");
+                                        op.setMessageType(JOptionPane.WARNING_MESSAGE);
                                     }
-
-                                    CorrelativoBoleta c = new CorrelativoBoleta();
-                                    CorrelativoBoletaBD cbd = new CorrelativoBoletaBD();
-                                    c.setCodigo(codigoActual);
-                                    c.setSerie(serieActual);
-                                    cbd.actualizarCorrelativo(c);
-
-                                    try {
-                                        imprimirBoletaFlete(idBoleta);
-                                    } catch (JRException ex) {
-                                        Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-
-                                    limpiarCliente();
-                                    limpiarTabla();
-                                    txtTotal.setText("");
-                                    txtIgv.setText("");
-                                    txtDniDestinatario.setText("");
-                                    txtDestinatario.setText("");
-                                    cmbTipo.setSelectedIndex(0);
-                                    obtenerFecha();
-                                    obtenerNumero();
-
                                 } else {
-                                    JOptionPane op = new JOptionPane("Error en sesion de caja");
+                                    JOptionPane op = new JOptionPane("Debe ingresar telefono");
                                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
                                 }
                             } else {
-                                JOptionPane op = new JOptionPane("Debe ingresar telefono");
+                                JOptionPane op = new JOptionPane("Debe ingresar nombres");
                                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
                             }
                         } else {
-                            JOptionPane op = new JOptionPane("Debe ingresar nombres");
+                            JOptionPane op = new JOptionPane("Debe ingresar dni");
                             op.setMessageType(JOptionPane.WARNING_MESSAGE);
                         }
                     } else {
-                        JOptionPane op = new JOptionPane("Debe ingresar dni");
+                        JOptionPane op = new JOptionPane("Debe ingresar correlativo");
                         op.setMessageType(JOptionPane.WARNING_MESSAGE);
                     }
                 } else {
-                    JOptionPane op = new JOptionPane("Debe ingresar correlativo");
+                    JOptionPane op = new JOptionPane("Debe ingresar fecha");
                     op.setMessageType(JOptionPane.WARNING_MESSAGE);
                 }
             } else {
-                JOptionPane op = new JOptionPane("Debe ingresar fecha");
+                JOptionPane op = new JOptionPane("Debe indicar si la venta es carga, encomienda, o flete");
                 op.setMessageType(JOptionPane.WARNING_MESSAGE);
             }
         } else {
-            JOptionPane op = new JOptionPane("Debe indicar si la venta es carga o encomienda seleccionando en el recuadro tipo");
+            JOptionPane op = new JOptionPane("Debe indicar si la venta es carga, encomienda, o flete");
             op.setMessageType(JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnVentaActionPerformed

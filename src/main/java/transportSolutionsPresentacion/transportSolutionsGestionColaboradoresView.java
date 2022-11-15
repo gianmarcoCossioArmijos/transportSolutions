@@ -9,7 +9,7 @@ import transportSolutionsLogica.EmpleadoBD;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsGestionColaboradoresView extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsGestionColaboradoresView() {
@@ -24,6 +24,15 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
         reporteEmpleados.getColumnModel().getColumn(3).setPreferredWidth(200);
     }
 
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteEmpleados.getModel();
+        int filas = reporteEmpleados.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -40,6 +49,7 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         btnDescargar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -102,7 +112,7 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -161,6 +171,14 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(204, 255, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +194,8 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
                     .addComponent(txtEliminar)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -203,8 +222,10 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDescargar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalir)
                 .addGap(15, 15, 15))
         );
@@ -270,7 +291,7 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
     private void reporteEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteEmpleadosMouseClicked
 
         int filaSeleccionada = reporteEmpleados.getSelectedRow();
-        
+
         txtEliminar.setText(reporteEmpleados.getValueAt(filaSeleccionada, 1).toString());
     }//GEN-LAST:event_reporteEmpleadosMouseClicked
 
@@ -286,23 +307,6 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
 
     private void txtBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarEmpleadoActionPerformed
 
-        if (txtBuscarEmpleado.getText().length() > 0) {
-
-            EmpleadoBD ebd = new EmpleadoBD();
-
-            String buscar = txtBuscarEmpleado.getText();
-            int dni = Integer.parseInt(buscar);
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = ebd.buscarEmpleado(dni);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteEmpleados.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar dni");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarEmpleadoActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -323,13 +327,37 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
     }//GEN-LAST:event_txtBuscarEmpleadoKeyTyped
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteEmpleados);
         } catch (IOException e) {
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (txtBuscarEmpleado.getText().length() > 0) {
+
+            EmpleadoBD ebd = new EmpleadoBD();
+
+            String buscar = txtBuscarEmpleado.getText();
+            int dni = Integer.parseInt(buscar);
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = ebd.buscarEmpleado(dni);
+
+            if (tabla_temporal.getRowCount() > 0) {
+                reporteEmpleados.setModel(tabla_temporal);
+                espaciadoTabla();
+                txtBuscarEmpleado.setText("");
+            } else {
+                limpiarTabla();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar dni");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDescargar;
@@ -338,6 +366,7 @@ public class transportSolutionsGestionColaboradoresView extends javax.swing.JInt
     public javax.swing.JButton btnMostrarEmpleados;
     public javax.swing.JButton btnNuevoEmpleado;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JDesktopPane panelMantenimiento;

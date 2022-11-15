@@ -1,15 +1,15 @@
 package transportSolutionsPresentacion;
 
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import transportSolutionsLogica.ClienteRucBD;
 import transportSolutionsLogica.DetalleFacturaBD;
 import transportSolutionsLogica.FacturaBD;
 import transportSolutionsReporte.Reporte;
 
-
 public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsReporteClienteRuc() {
@@ -20,6 +20,26 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
 
         reporteVenta.getColumnModel().getColumn(5).setPreferredWidth(170);
         reporteVenta.getColumnModel().getColumn(6).setPreferredWidth(170);
+    }
+
+    private void limpiarVenta() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteVenta.getModel();
+        int filas = reporteVenta.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
+    }
+
+    private void limpiarDetalleVenta() {
+
+        DefaultTableModel temporal = (DefaultTableModel) reporteDetalleVenta.getModel();
+        int fila = reporteDetalleVenta.getRowCount();
+
+        for (int i = 0; fila > i; i++) {
+            temporal.removeRow(0);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -36,6 +56,7 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
         reporteVenta = new javax.swing.JTable();
         btnImprimir = new javax.swing.JButton();
         btnImprimir1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -122,6 +143,14 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
             }
         });
 
+        btnBuscar.setBackground(new java.awt.Color(204, 255, 0));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,7 +163,8 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
                             .addComponent(jLabel1)
                             .addComponent(txtBuscarRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                             .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnImprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 794, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -161,7 +191,9 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtBuscarRuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addGap(25, 25, 25)
                         .addComponent(btnImprimir)
                         .addGap(26, 26, 26)
                         .addComponent(btnImprimir1)
@@ -187,22 +219,11 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
     }//GEN-LAST:event_reporteDetalleVentaMouseClicked
 
     private void txtBuscarRucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarRucActionPerformed
-        
-        ClienteRucBD crbd = new ClienteRucBD();
-        String ruc = txtBuscarRuc.getText();
-        int id = Integer.parseInt(crbd.reportarClienteRuc(ruc));
-        
-        FacturaBD fbd = new FacturaBD();
-        DefaultTableModel tabla_temporal;
-        tabla_temporal = fbd.buscarFacturaCliente(id);
-        reporteVenta.setModel(tabla_temporal);
-        espaciadoTabla();
-        
-        
+
     }//GEN-LAST:event_txtBuscarRucActionPerformed
 
     private void reporteVentaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteVentaMousePressed
-       
+
         int fila_seleccionada = reporteVenta.getSelectedRow();
         DefaultTableModel tabla_temporal = (DefaultTableModel) reporteVenta.getModel();
         int idventa = Integer.parseInt(tabla_temporal.getValueAt(fila_seleccionada, 0).toString());
@@ -210,28 +231,65 @@ public class transportSolutionsReporteClienteRuc extends javax.swing.JInternalFr
         DetalleFacturaBD dfbd = new DetalleFacturaBD();
         DefaultTableModel tabla = dfbd.buscarDetalleFactura(idventa);
 
-        reporteDetalleVenta.setModel(tabla);
+        if (tabla.getRowCount() > 0) {
+
+            reporteDetalleVenta.setModel(tabla);
+
+        } else {
+            limpiarDetalleVenta();
+        }
     }//GEN-LAST:event_reporteVentaMousePressed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimir1ActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteDetalleVenta);
         } catch (IOException e) {
+            JOptionPane op = new JOptionPane("Error al exportar excel");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnImprimir1ActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        if (txtBuscarRuc.getText().length() > 0) {
+
+            ClienteRucBD crbd = new ClienteRucBD();
+            String ruc = txtBuscarRuc.getText();
+            int id = Integer.parseInt(crbd.reportarClienteRuc(ruc));
+
+            FacturaBD fbd = new FacturaBD();
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = fbd.buscarFacturaCliente(id);
+
+            if (tabla_temporal.getRowCount() > 0) {
+
+                reporteVenta.setModel(tabla_temporal);
+                espaciadoTabla();
+
+            } else {
+                limpiarVenta();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar ruc");
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnImprimir1;
     private javax.swing.JButton btnSalir;

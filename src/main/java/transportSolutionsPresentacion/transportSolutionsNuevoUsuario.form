@@ -41,9 +41,9 @@
                           <Component id="cmbTipoUsuario" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnRegistrar" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace pref="32" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnBorrar" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                               <Component id="btnCerrar" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -56,29 +56,32 @@
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtConfirmarContraseña" alignment="0" pref="300" max="32767" attributes="0"/>
-                                  <Component id="txtDni" max="32767" attributes="0"/>
-                                  <Component id="txtNombres" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtDni" min="-2" pref="400" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtContraseña" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtNombres" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                                  <Component id="txtConfirmarContraseña" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtDni" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -108,15 +111,15 @@
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cmbTipoUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnRegistrar" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnCerrar" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="btnBorrar" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="btnBorrar" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

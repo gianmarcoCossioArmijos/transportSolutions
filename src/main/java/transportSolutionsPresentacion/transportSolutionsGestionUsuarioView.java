@@ -10,7 +10,7 @@ import transportSolutionsModelo.Usuario;
 import transportSolutionsReporte.Reporte;
 
 public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalFrame {
-    
+
     Reporte rtv;
 
     public transportSolutionsGestionUsuarioView() {
@@ -23,6 +23,16 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
         reporteUsuarios.getColumnModel().getColumn(4).setPreferredWidth(10);
         reporteUsuarios.getColumnModel().getColumn(2).setPreferredWidth(200);
         reporteUsuarios.getColumnModel().getColumn(3).setPreferredWidth(200);
+    }
+
+    public void limpiarTabla() {
+
+        DefaultTableModel temp = (DefaultTableModel) reporteUsuarios.getModel();
+        int filas = reporteUsuarios.getRowCount();
+
+        for (int i = 0; filas > i; i++) {
+            temp.removeRow(0);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +51,7 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
         jLabel1 = new javax.swing.JLabel();
         txtEliminar = new javax.swing.JTextField();
         btnDescargar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -104,7 +115,7 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
         );
         panelMantenimientoLayout.setVerticalGroup(
             panelMantenimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(255, 0, 0));
@@ -163,6 +174,14 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(204, 255, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscar.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,7 +197,8 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
                     .addComponent(txtEliminar)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDescargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelMantenimiento)
                 .addContainerGap())
@@ -206,8 +226,10 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDescargar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)
                         .addGap(15, 15, 15))))
         );
@@ -257,10 +279,8 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
             DefaultTableModel tabla_temporal;
             tabla_temporal = ubd.reportarUsuario();
 
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteUsuarios.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
+            reporteUsuarios.setModel(tabla_temporal);
+            espaciadoTabla();
         } else {
             JOptionPane op = new JOptionPane("DEbe selecionar un usuario");
             op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
@@ -290,24 +310,6 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
 
     private void txtBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioActionPerformed
 
-        if (txtBuscarUsuario.getText().length() > 0) {
-
-            Usuario u = new Usuario();
-            UsuarioBD ubd = new UsuarioBD();
-
-            String buscar = txtBuscarUsuario.getText();
-            int dni = Integer.parseInt(buscar);
-            DefaultTableModel tabla_temporal;
-            tabla_temporal = ubd.buscarUsuario(dni);
-
-            if (tabla_temporal.getRowCount() > 0) {
-                reporteUsuarios.setModel(tabla_temporal);
-                espaciadoTabla();
-            }
-        } else {
-            JOptionPane op = new JOptionPane("Debe ingresar dni");
-            op.setMessageType(JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_txtBuscarUsuarioActionPerformed
 
     private void txtEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEliminarActionPerformed
@@ -328,13 +330,39 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
     }//GEN-LAST:event_txtBuscarUsuarioKeyTyped
 
     private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
-        
+
         try {
             rtv = new Reporte();
             rtv.exportarExcel(reporteUsuarios);
         } catch (IOException e) {
         }
     }//GEN-LAST:event_btnDescargarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (txtBuscarUsuario.getText().length() > 0) {
+
+            Usuario u = new Usuario();
+            UsuarioBD ubd = new UsuarioBD();
+
+            String buscar = txtBuscarUsuario.getText();
+            int dni = Integer.parseInt(buscar);
+            DefaultTableModel tabla_temporal;
+            tabla_temporal = ubd.buscarUsuario(dni);
+
+            if (tabla_temporal.getRowCount() > 0) {
+
+                reporteUsuarios.setModel(tabla_temporal);
+                espaciadoTabla();
+                txtBuscarUsuario.setText("");
+            } else {
+                limpiarTabla();
+            }
+        } else {
+            JOptionPane op = new JOptionPane("Debe ingresar dni");
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDescargar;
@@ -343,6 +371,7 @@ public class transportSolutionsGestionUsuarioView extends javax.swing.JInternalF
     public javax.swing.JButton btnMostrarUsuarios;
     public javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JDesktopPane panelMantenimiento;

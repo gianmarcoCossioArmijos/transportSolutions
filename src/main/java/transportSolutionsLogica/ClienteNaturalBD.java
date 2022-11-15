@@ -66,7 +66,7 @@ public class ClienteNaturalBD {
         String[] titulos = {"ID", "NOMBRES", "DNI", "CORREO", "FECHA NAC", "TELEFONO"};
         String[] registros = new String[6];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idClienteNatural,nombres,dni,correo,fechaNacimiento,telefono FROM clienteNatural";
+        sql = "SELECT idClienteNatural,nombres,dni,correo,fechaNacimiento,telefono FROM clienteNatural ORDER BY nombres ASC";
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -91,9 +91,9 @@ public class ClienteNaturalBD {
         }
     }
 
-    public boolean eliminarClienteNatural(String dni) {
+    public boolean eliminarClienteNatural(int id) {
 
-        sql = "DELETE FROM clienteNatural WHERE dni='" + dni + "'";
+        sql = "DELETE FROM clienteNatural WHERE idClienteNatural='" + id + "'";
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sql);
@@ -131,24 +131,6 @@ public class ClienteNaturalBD {
             st.close();
             con.close();
             return modelo;
-        } catch (Exception e) {
-            JOptionPane op = new JOptionPane("Problemas al buscar cliente");
-            op.setMessageType(JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
-    }
-    
-    public String buscarClienteNaturalDNI(String dni) {
-
-        String registro = null;
-        sql = "SELECT idClienteNatural FROM clienteNatural WHERE dni='" + dni + "'";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            if (rs.next()) {
-                registro = rs.getString("idClienteNatural");
-            }
-            return registro;
         } catch (Exception e) {
             JOptionPane op = new JOptionPane("Problemas al buscar cliente");
             op.setMessageType(JOptionPane.ERROR_MESSAGE);

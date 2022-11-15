@@ -115,7 +115,7 @@ public class transportSolutionFleteCargaView extends javax.swing.JInternalFrame 
 
         btnAsignarFleteCarga.setBackground(new java.awt.Color(204, 204, 255));
         btnAsignarFleteCarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAsignarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nuevo_vehiculo.png"))); // NOI18N
+        btnAsignarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asignar_fletecarga.png"))); // NOI18N
         btnAsignarFleteCarga.setText("Asignar Flete Carga");
         btnAsignarFleteCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +205,7 @@ public class transportSolutionFleteCargaView extends javax.swing.JInternalFrame 
 
         btnModificarFleteCarga.setBackground(new java.awt.Color(204, 204, 255));
         btnModificarFleteCarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnModificarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_vehiculos.png"))); // NOI18N
+        btnModificarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/modificar_flete_carga.png"))); // NOI18N
         btnModificarFleteCarga.setText("Modificar Flete Carga");
         btnModificarFleteCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,7 +264,7 @@ public class transportSolutionFleteCargaView extends javax.swing.JInternalFrame 
 
         btnLiberarFleteCarga.setBackground(new java.awt.Color(204, 204, 255));
         btnLiberarFleteCarga.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLiberarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mostrar_vehiculos.png"))); // NOI18N
+        btnLiberarFleteCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/liberar_flete_carga.png"))); // NOI18N
         btnLiberarFleteCarga.setText("Liberar Flete Carga");
         btnLiberarFleteCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

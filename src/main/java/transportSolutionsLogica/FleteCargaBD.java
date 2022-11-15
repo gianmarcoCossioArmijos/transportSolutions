@@ -160,7 +160,7 @@ public class FleteCargaBD {
         String[] titulos = {"ID","ORIGEN","DESTINO","FECHA SALIDA","FECHA ARRIBO","ESTADO","PLACA","DNI CHOFER","CHOFER"};
         String[] registros = new String[9];
         modelo = new DefaultTableModel(null, titulos);
-        sql = "SELECT idFleteCarga,origen,destino,fechaSalida,fechaArribo,estado,v.placa,ch.dni,ch.nombres FROM fleteCarga AS fc JOIN vehiculo AS v ON fc.idVehiculo = v.idVehiculo JOIN chofer AS ch ON fc.idChofer = ch.idChofer WHERE fc.estado='" + estado + "' OR fc.fechaArribo='" + fechaArribo + "' ";
+        sql = "SELECT idFleteCarga,origen,destino,fechaSalida,fechaArribo,estado,v.placa,ch.dni,ch.nombres FROM fleteCarga AS fc JOIN vehiculo AS v ON fc.idVehiculo = v.idVehiculo JOIN chofer AS ch ON fc.idChofer = ch.idChofer WHERE fc.estado='" + estado + "' OR fc.fechaArribo='" + fechaArribo + "' ORDER BY idFleteCarga DESC";
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);

@@ -236,7 +236,7 @@ public class transportSolutionsModificarInventario extends javax.swing.JInternal
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,12 +276,12 @@ public class transportSolutionsModificarInventario extends javax.swing.JInternal
                         .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                         .addGap(107, 107, 107)
                         .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25))
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,12 +307,12 @@ public class transportSolutionsModificarInventario extends javax.swing.JInternal
                     .addComponent(jLabel8)
                     .addComponent(txtComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargarComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrar)
                     .addComponent(btnCerrar)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,7 +331,7 @@ public class transportSolutionsModificarInventario extends javax.swing.JInternal
                     if (txtMarca.getText().length() > 0) {
                         if (txtPrecio.getText().length() > 0) {
                             if (dcFechaCompra.getDate().toString().length() > 0) {
-                                if (cmbProveedor.getSelectedItem().toString().length() > 0) {
+                                if (!"SELECCIONAR".equals(cmbProveedor.getSelectedItem().toString())) {
                                     if (txtComprobante.getText().length() > 0) {
 
                                         Inventario i = new Inventario();
