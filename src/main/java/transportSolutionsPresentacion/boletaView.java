@@ -1,26 +1,12 @@
 package transportSolutionsPresentacion;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Connection;
 import javax.swing.table.DefaultTableModel;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
-import transportSolutionsConexion.Conexion;
 import transportSolutionsLogica.BoletaBD;
 import transportSolutionsLogica.CajaBD;
 import transportSolutionsLogica.CargaBD;
@@ -269,30 +255,6 @@ public class boletaView extends javax.swing.JInternalFrame {
             dbbd.registrarDetalleBoleta(db);
         }
     }
-
-//    private void imprimirBoletaFlete(int id) throws JRException {
-//
-//        try {
-//            Conexion mysql = new Conexion();
-//            Connection cn = mysql.conectar();
-//
-//            JasperReport reporte = null;
-//            String ruta = "src\\main\\resources\\boletaReporte.jrxml";
-//
-//            Map parametro = new HashMap();
-//            parametro.clear();
-//            parametro.put("b.idBoleta", id);
-//
-//            reporte = (JasperReport) JRLoader.loadObjectFromFile(new File("").getAbsolutePath() + ruta);
-//            JasperPrint print = JasperFillManager.fillReport(reporte, parametro, cn);
-//            JasperViewer view = new JasperViewer(print, false);
-//            view.setVisible(true);
-//
-//        } catch (JRException ex) {
-//            Logger.getLogger(boletaView.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
